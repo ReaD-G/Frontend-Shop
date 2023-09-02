@@ -1,0 +1,18 @@
+import { ICategory } from './category.interface'
+import { IReview } from './review.interface'
+
+export interface IProduct {
+	id: number
+	name: string
+	slug: string
+	description: string
+	images: string[]
+	price: number
+	createdAt: Date
+	category: ICategory
+	reviews: IReview[]
+}
+
+export interface IProductDetails {
+	product: IProduct
+}
