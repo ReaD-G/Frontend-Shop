@@ -12,6 +12,7 @@ const DynamicFavoriteButton = dynamic(() => import('./FavoriteButton'), {
 })
 
 const ProductItem: FC<{ product: IProduct }> = ({ product }) => {
+	console.log(product)
 	return (
 		<div className="animate-scaleIn">
 			<div className="bg-white rounded-xl relative overflow-hidden">
@@ -21,8 +22,8 @@ const ProductItem: FC<{ product: IProduct }> = ({ product }) => {
 				</div>
 				<Link href={`category/${product.slug}`}>
 					<Image
-						width={250}
-						height={250}
+						width={225}
+						height={225}
 						src={product.images[0]}
 						alt={product.name}
 					/>

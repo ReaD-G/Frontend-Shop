@@ -1,10 +1,13 @@
+import { useActions } from '@/hooks/useActions'
 import { useCart } from '@/hooks/useCart'
 import { useOutside } from '@/hooks/useOutside'
+import { OrderService } from '@/services/order.service'
 import Button from '@/ui/button/Button'
 import SquareButton from '@/ui/button/SquareButton'
 import { convertPrice } from '@/utils/convertPrice'
+import { useMutation } from '@tanstack/react-query'
 import cn from 'classnames'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 import { RiShoppingCartLine } from 'react-icons/ri'
 import CartItem from './CartItem'
@@ -13,6 +16,26 @@ const Cart: FC = () => {
 	const { isShow, setIsShow, ref } = useOutside(false)
 	const { items, total } = useCart()
 	const { push } = useRouter()
+
+	const { reset } = useActions()
+
+	const { mutate } = useMutation(
+		['create order and payment'],
+		() =>
+			OrderService.place({
+				items: items.map(item => ({
+					price: item.price,
+					productId: item.product.id,
+					quantity: item.quantity
+				}))
+			}),
+		{
+			onSuccess({ data }) {
+				push(data.confirmation.confirmation_url).then(() => reset())
+			}
+		}
+	)
+
 	return (
 		<div className="relative" ref={ref}>
 			<SquareButton
@@ -42,7 +65,12 @@ const Cart: FC = () => {
 					<div>{convertPrice(total)}</div>
 				</div>
 				<div className="text-center">
-					<Button variant="white" size="sm" className="btn-link mt-5 mb-2">
+					<Button
+						variant="white"
+						size="sm"
+						className="btn-link mt-5 mb-2"
+						onClick={() => mutate()}
+					>
 						Place order
 					</Button>
 				</div>

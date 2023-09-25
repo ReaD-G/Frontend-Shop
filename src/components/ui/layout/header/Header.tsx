@@ -4,6 +4,7 @@ import { FC } from 'react'
 import { AiOutlineHeart } from 'react-icons/ai'
 import HeaderProfile from './HeaderProfile'
 import HeaderCart from './cart/cart-item/HeaderCart'
+import Search from './Search'
 
 const Header: FC = () => {
 	return (
@@ -13,16 +14,24 @@ const Header: FC = () => {
 				gridTemplateColumns: '1fr 3fr 1.2fr'
 			}}
 		>
-			<Link className="justify-center text-center flex" href="/">
+			<Link className="text-center flex " href="/">
 				<Image
 					priority
-					width={350}
+					width={50}
 					height={35}
 					src="/images/logo.svg"
-					alt="Shop"
+					alt="logo"
+				/>
+				<Image
+					priority
+					className="ml-3"
+					width={200}
+					height={35}
+					src="/images/name.svg"
+					alt="name"
 				/>
 			</Link>
-			{/* <Search /> */}
+			<Search />
 			<div className="flex items-center justify-end gap-10">
 				<Link href="/favorites" className="text-white">
 					<AiOutlineHeart size={28} />

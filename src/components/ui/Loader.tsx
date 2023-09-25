@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 const Loader: FC = () => {
 	return (
-		<div className='flex justify-center items-center'>
+		<div className="flex justify-center items-center">
 			<svg
 				width="44"
 				height="44"

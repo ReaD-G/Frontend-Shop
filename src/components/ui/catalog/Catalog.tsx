@@ -1,9 +1,9 @@
+'use client'
+
 import { IProduct } from '@/types/product.interface'
 import { FC } from 'react'
 import Heading from '../Heading'
 import Loader from '../Loader'
-import Button from '../button/Button'
-import SortDropdown from './SortDropdown'
 import ProductItem from './product-item/ProductItem'
 
 interface ICatalog {

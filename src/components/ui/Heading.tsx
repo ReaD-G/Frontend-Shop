@@ -1,4 +1,3 @@
-import { title } from 'process'
 import { FC, PropsWithChildren } from 'react'
 
 interface IHeading {

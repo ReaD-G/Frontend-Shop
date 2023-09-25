@@ -2,6 +2,7 @@ import { axiosClassic } from '@/api/api.interceptor'
 import Cookies from 'js-cookie'
 import { IAuthResponse, IEmailPassword } from '../../store/user/user.interface'
 import { saveToStorage } from './auth.helper'
+import { REFRESH_TOKEN } from '@/constants/token.contants'
 
 export const AuthService = {
 	async main(type: 'login' | 'register', data: IEmailPassword) {
@@ -17,7 +18,7 @@ export const AuthService = {
 	},
 
 	async getNewTokens() {
-		const refreshToken = Cookies.get('refreshToken')
+		const refreshToken = Cookies.get(REFRESH_TOKEN)
 		const response = await axiosClassic.post<string, { data: IAuthResponse }>(
 			'/auth/login/access-token',
 			{ refreshToken }

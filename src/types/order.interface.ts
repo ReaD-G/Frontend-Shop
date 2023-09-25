@@ -14,4 +14,5 @@ export interface IOrder {
 	items: ICartItem[]
 	status: OrderStatus
 	user: IUser
+	total: number
 }
