@@ -2,20 +2,19 @@
 
 import { OrderService } from '@/services/order.service'
 import Heading from '@/ui/Heading'
-import Layout from '@/ui/layout/Layout'
 import { convertPrice } from '@/utils/convertPrice'
 import { useQuery } from '@tanstack/react-query'
 
 export default function MyOrders() {
 	const { data: orders } = useQuery(
 		['my orders'],
-		() => OrderService.getAll(),
+		() => OrderService.getByUserId(),
 		{
 			select: ({ data }) => data
 		}
 	)
 	return (
-		<Layout>
+		<>
 			<Heading>My orders</Heading>
 			<section>
 				{orders?.length ? (
@@ -35,9 +34,9 @@ export default function MyOrders() {
 						))
 					)
 				) : (
-					<div>Order not found!</div>
+					<div>Orders not found!</div>
 				)}
 			</section>
-		</Layout>
+		</>
 	)
 }

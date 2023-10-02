@@ -10,15 +10,9 @@ interface ICatalog {
 	products: IProduct[]
 	isLoading?: boolean
 	title?: string
-	isPagination?: boolean
 }
 
-const Catalog: FC<ICatalog> = ({
-	products,
-	isLoading,
-	title,
-	isPagination = false
-}) => {
+const Catalog: FC<ICatalog> = ({ products, isLoading, title }) => {
 	if (isLoading) return <Loader />
 
 	return (

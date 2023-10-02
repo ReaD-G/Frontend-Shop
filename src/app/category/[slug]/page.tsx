@@ -1,4 +1,3 @@
-import Layout from '@/app/layout'
 import { CategoryService } from '@/services/categoty.service'
 import { ProductService } from '@/services/product/product.service'
 import { IPageSlugParam, TypeParamSlug } from '@/types/page-params'
@@ -51,9 +50,5 @@ export async function generateMetadata({
 
 export default async function CategoryPage({ params }: IPageSlugParam) {
 	const { products, category } = await getProducts(params)
-	return (
-		<Layout>
-			<Catalog products={products || []} title={category.name} />
-		</Layout>
-	)
+	return <Catalog products={products || []} title={category.name} />
 }

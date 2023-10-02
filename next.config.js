@@ -11,7 +11,8 @@ const nextConfig = {
 			'images.unsplash.com',
 			'loremflickr.com',
 			'www.aptronixindia.com',
-			'cloudflare-ipfs.com'
+			'cloudflare-ipfs.com',
+			'avatars.githubsercontent.com',
 		]
 	},
 	async rewrites() {

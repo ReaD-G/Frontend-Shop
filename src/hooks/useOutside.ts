@@ -17,7 +17,7 @@ export const useOutside = (initialIsVisible: boolean): TypeOut => {
 	}
 
 	useEffect(() => {
-		document.addEventListener('clicl', handleClickOutside, true)
+		document.addEventListener('click', handleClickOutside, true)
 		return () => {
 			document.removeEventListener('click', handleClickOutside, true)
 		}

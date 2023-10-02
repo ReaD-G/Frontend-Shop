@@ -10,7 +10,7 @@ const colors = {
 	secondary: '#161D25',
 	'bg-color': '#F2F2F5',
 	aqua: '#268697',
-	red: twColors.red[400],
+	red: twColors.red[400]
 }
 
 module.exports = {
@@ -38,6 +38,11 @@ module.exports = {
 				'7xl': '5.17rem',
 				'8xl': '6.9rem',
 				'9xl': '9.2rem'
+			},
+			zIndex: {
+				1: 1,
+				2: 2,
+				3: 3
 			},
 			keyframes: {
 				animationOpacity: {
