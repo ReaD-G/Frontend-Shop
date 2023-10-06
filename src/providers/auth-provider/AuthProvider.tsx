@@ -1,6 +1,6 @@
 'use client'
 
-import Auth from '@/app/auth/Auth'
+import Auth from '@/app/(customer)/auth/Auth'
 import NotFound from '@/app/not-found'
 import { ADMIN_PANEL_URL } from '@/config/url.config'
 import { REFRESH_TOKEN } from '@/constants/token.contants'

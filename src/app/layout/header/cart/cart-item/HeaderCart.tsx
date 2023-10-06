@@ -1,46 +1,20 @@
 'use client'
 
-import { useActions } from '@/hooks/useActions'
 import { useCart } from '@/hooks/useCart'
 import { useOutside } from '@/hooks/useOutside'
-import { OrderService } from '@/services/order.service'
 import SquareButton from '@/ui/button/SquareButton'
 import { convertPrice } from '@/utils/convertPrice'
-import { useMutation } from '@tanstack/react-query'
-import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 import { RiShoppingCartLine } from 'react-icons/ri'
 import CartItem from './CartItem'
 
-import styles from './Cart.module.scss'
 import Link from 'next/link'
+import styles from './Cart.module.scss'
 
 const Cart: FC = () => {
 	const { isShow, setIsShow, ref } = useOutside(false)
 
 	const { items, total } = useCart()
-
-	const { push } = useRouter()
-
-	const { reset } = useActions()
-
-	const { mutate } = useMutation(
-		['create order and payment'],
-		() =>
-			OrderService.place({
-				items: items.map(item => ({
-					price: item.price,
-					productId: item.product.id,
-					quantity: item.quantity
-				}))
-			}),
-		{
-			onSuccess({ data }) {
-				reset()
-				push(data.confirmation.confirmation_url)
-			}
-		}
-	)
 
 	return (
 		<div className="relative" ref={ref}>
@@ -68,7 +42,11 @@ const Cart: FC = () => {
 					</div>
 					{!!items.length && (
 						<div className="text-center mt-7 mb-5">
-							<Link className="btn btn-white" href="checkout">
+							<Link
+								className="btn btn-white"
+								href="/checkout"
+								onClick={() => setIsShow(false)}
+							>
 								Go to checkout
 							</Link>
 						</div>
