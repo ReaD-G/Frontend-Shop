@@ -10,9 +10,11 @@ const nextConfig = {
 		domains: [
 			'images.unsplash.com',
 			'loremflickr.com',
+			'utfs.io',
 			'www.aptronixindia.com',
 			'cloudflare-ipfs.com',
 			'avatars.githubsercontent.com',
+			'avatars.githubusercontent.com'
 		]
 	},
 	async rewrites() {

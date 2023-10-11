@@ -7,7 +7,6 @@ import { useAdminReviews } from './useAdminReviews'
 
 const Reviews: FC = () => {
 	const { data, isFetching } = useAdminReviews()
-	console.log(data)
 
 	return (
 		<>

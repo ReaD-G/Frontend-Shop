@@ -8,9 +8,8 @@ import { Golos_Text } from 'next/font/google'
 import { getSiteUrl } from '@/config/url.config'
 import { SITE_NAME } from '@/constants/app.constans'
 
-import Header from '@/app/layout/header/Header'
-import Sidebar from '@/app/layout/sidebar/Sidebar'
 import type { Metadata } from 'next'
+import LayoutProvider from './layout/LayoutProvider'
 
 export const metadata: Metadata = {
 	icons: {
@@ -39,25 +38,12 @@ const golos = Golos_Text({
 
 export default function RootLayout({ children }: PropsWithChildren<unknown>) {
 	return (
-		<html lang="en" className={golos.variable}>
+		<html lang="ru" className={golos.variable}>
 			<body>
 				<Providers>
-					<div className=" bg-secondary">
-						<Header />
-						<div
-							className="grid"
-							style={{
-								gridTemplateColumns: '.8fr 4fr'
-							}}
-						>
-							<Sidebar />
-							<main className="p-12 pb-52 bg-bg-color rounded-tl-lg">
-								{children}
-							</main>
-						</div>
-					</div>
+					<LayoutProvider>{children}</LayoutProvider>
 				</Providers>
-				<div id="modal"></div>
+				<div id="modal" />
 			</body>
 		</html>
 	)

@@ -10,8 +10,6 @@ interface IProductReviews {
 const ProductReviewCount = ({ product }: IProductReviews) => {
 	const reviewsLength = product.reviews.length
 
-	console.log(reviewsLength)
-
 	if (!reviewsLength) return null
 
 	return (

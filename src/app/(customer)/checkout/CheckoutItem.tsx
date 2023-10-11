@@ -5,14 +5,13 @@ import { FC } from 'react'
 import styles from './Checkout.module.scss'
 
 const CheckoutItem: FC<{ product: IProduct }> = ({ product }) => {
+	const image = product.images.length
+		? product.images[0].fileUrl
+		: '/images/noImage.png'
 	return (
 		<div className={styles.item}>
-			<Image
-				src={product.images[0]}
-				width={100}
-				height={100}
-				alt={product.name}
-			/>
+			<Image src={image} width={100} height={100} alt={product.name} />
+
 			<div className={styles.row}>
 				<div className={styles.information}>
 					<div>{product.name}</div>

@@ -17,12 +17,12 @@ const Header: FC = () => {
 
 	return (
 		<header
-			className=" bg-secondary w-full py-6 px-6 grid"
+			className="bg-secondary w-full py-6 px-6 grid"
 			style={{
-				gridTemplateColumns: '1fr 3fr 1.2fr'
+				gridTemplateColumns: '1fr 3fr 1fr'
 			}}
 		>
-			<Link className="text-center flex " href="/">
+			<Link className="text-center flex" href="/">
 				{isAdminPanel ? (
 					<h2 className="text-3xl text-white font-semibold">Admin Panel</h2>
 				) : (

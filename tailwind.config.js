@@ -1,27 +1,33 @@
 /** @type {import('tailwindcss').Config} */
 const twColors = require('tailwindcss/colors')
+const { withUt } = require('uploadthing/tw')
+const { nextui } = require('@nextui-org/react')
 
 const colors = {
 	transparent: twColors.transparent,
 	black: '#2E3239',
 	gray: '#CDCDCD',
 	white: twColors.white,
-	primary: '#FF9902',
-	secondary: '#161D25',
+	primary: {
+		DEFAULT: '#FF9902'
+	},
+	secondary: {
+		DEFAULT: '#161D25'
+	},
 	'bg-color': '#F2F2F5',
 	aqua: '#268697',
 	red: twColors.red[400]
 }
 
-module.exports = {
+module.exports = withUt({
 	content: [
 		'./pages/**/*.{ts,tsx}',
 		'./components/**/*.{ts,tsx}',
 		'./app/**/*.{ts,tsx}',
-		'./src/**/*.{ts,tsx}'
+		'./src/**/*.{ts,tsx}',
+		'./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'
 	],
 	theme: {
-		colors,
 		extend: {
 			fontSize: {
 				xs: '0.82rem',
@@ -69,5 +75,28 @@ module.exports = {
 			}
 		}
 	},
-	plugins: [require('tailwindcss-animate')]
-}
+	darkMode: 'class',
+	plugins: [
+		require('tailwindcss-animate'),
+		nextui({
+			layout: {
+				disabledOpacity: '0.3', // opacity-[0.3]
+				radius: {
+					small: '2px', // rounded-small
+					medium: '4px', // rounded-medium
+					large: '6px' // rounded-large
+				},
+				borderWidth: {
+					small: '1px', // border-small
+					medium: '1px', // border-medium
+					large: '2px' // border-large
+				}
+			},
+			themes: {
+				light: {
+					colors
+				}
+			}
+		})
+	]
+})

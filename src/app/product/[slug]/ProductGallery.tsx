@@ -3,15 +3,18 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 interface IPrioductGallery {
-	images: string[]
+	images: { fileUrl: string; fileKey: string }[]
 }
 
 export function ProductsGallery({ images }: IPrioductGallery) {
 	const [activeIndex, setActiveIndex] = useState(0)
+	const image = images.length
+		? images[activeIndex].fileUrl
+		: '/images/noImage.png'
 	return (
 		<div>
 			<Image
-				src={images[activeIndex]}
+				src={image}
 				alt=""
 				width={500}
 				height={500}
@@ -36,7 +39,7 @@ export function ProductsGallery({ images }: IPrioductGallery) {
 						onClick={() => setActiveIndex(index)}
 					>
 						<Image
-							src={image}
+							src={image.fileUrl}
 							alt=""
 							width={100}
 							height={100}

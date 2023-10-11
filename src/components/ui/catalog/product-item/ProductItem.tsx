@@ -4,10 +4,14 @@ import { convertPrice } from '@/utils/convertPrice'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FC } from 'react'
+
 import FavoriteButton from './FavoriteButton'
 import ProductRating from './ProductRating'
 
 const ProductItem: FC<{ product: IProduct }> = ({ product }) => {
+	const image = product.images.length
+		? product.images[0].fileUrl
+		: '/images/noImage.png'
 	return (
 		<div className="animate-scaleIn">
 			<div className="bg-white rounded-xl relative overflow-hidden">
@@ -19,7 +23,7 @@ const ProductItem: FC<{ product: IProduct }> = ({ product }) => {
 					<Image
 						width={225}
 						height={225}
-						src={product.images[0]}
+						src={image}
 						alt={product.name}
 						className="block mx-auto"
 					/>

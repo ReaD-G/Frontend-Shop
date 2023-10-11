@@ -2,6 +2,7 @@ export interface IListItem {
 	id: number
 	editUrl?: string
 	viewUrl?: string
+	createUrl?: string
 	items: string[]
 }
 

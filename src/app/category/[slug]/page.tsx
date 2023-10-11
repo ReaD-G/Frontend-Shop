@@ -37,12 +37,13 @@ export async function generateMetadata({
 	params
 }: IPageSlugParam): Promise<Metadata> {
 	const { products, category } = await getProducts(params)
-
 	return {
 		title: category.name,
 		description: `Random description about ${category.name}`,
 		openGraph: {
-			images: products[0].images,
+			images: products[0].images.length
+				? products[0].images[0].fileUrl
+				: '/images/noImage.png',
 			description: `Random description about ${category.name}`
 		}
 	}

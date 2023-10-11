@@ -4,7 +4,7 @@ export type TypeProductData = {
 	name: string
 	slug: string
 	description?: string
-	images: string[]
+	images: { fileUrl: string; fileKey: string }[]
 	price: number
 	categoryId: number
 }

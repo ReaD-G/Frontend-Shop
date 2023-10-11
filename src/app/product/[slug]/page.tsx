@@ -36,7 +36,9 @@ export async function generateMetadata({
 		description: product.description,
 		category: product.category.name,
 		openGraph: {
-			images: product?.images || [],
+			images: product.images.length
+				? product?.images[0].fileUrl
+				: '/images/noImage.png',
 			description: product.description
 		}
 	}

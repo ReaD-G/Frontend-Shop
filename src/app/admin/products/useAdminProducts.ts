@@ -9,19 +9,21 @@ export const useAdminProducts = () => {
 		['get admin products'],
 		() => ProductService.getAll(),
 		{
-			select: data =>
-				data.products.map((product): IListItem => {
+			select: data => ({
+				products: data.products.map((product): IListItem => {
 					return {
 						id: product.id,
 						viewUrl: `/product/${product.slug}`,
-						editUrl: getAdminUrl(`products/edit/${product.id}`),
+						editUrl: getAdminUrl(`/products/edit/${product.id}`),
 						items: [
 							product.name,
 							product.category.name,
 							formatDate(product.createdAt)
 						]
 					}
-				})
+				}),
+				createUrl: getAdminUrl(`/products/create/`)
+			})
 		}
 	)
 

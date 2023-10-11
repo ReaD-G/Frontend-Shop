@@ -8,6 +8,7 @@ import { persistor, store } from '@/store/store'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { PropsWithChildren } from 'react'
 import { PersistGate } from 'redux-persist/integration/react'
+import { NextUIProvider } from '@nextui-org/react'
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -22,7 +23,9 @@ export default function App({ children }: PropsWithChildren) {
 		<QueryClientProvider client={queryClient}>
 			<Provider store={store}>
 				<PersistGate loading={null} persistor={persistor}>
-					<AuthProvider>{children}</AuthProvider>
+					<NextUIProvider>
+						<AuthProvider>{children}</AuthProvider>
+					</NextUIProvider>
 				</PersistGate>
 			</Provider>
 		</QueryClientProvider>

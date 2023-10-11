@@ -6,7 +6,7 @@ export interface IProduct {
 	name: string
 	slug: string
 	description: string
-	images: string[]
+	images: { fileUrl: string; fileKey: string }[]
 	price: number
 	createdAt: Date
 	category: ICategory

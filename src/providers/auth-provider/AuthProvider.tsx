@@ -1,6 +1,6 @@
 'use client'
 
-import Auth from '@/app/(customer)/auth/Auth'
+import Auth from '@/app/(auth)/auth/Auth'
 import NotFound from '@/app/not-found'
 import { ADMIN_PANEL_URL } from '@/config/url.config'
 import { REFRESH_TOKEN } from '@/constants/token.contants'
@@ -8,7 +8,7 @@ import { useActions } from '@/hooks/useActions'
 import { useAuth } from '@/hooks/useAuth'
 import { getAccessToken } from '@/services/auth/auth.helper'
 import Cookies from 'js-cookie'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { FC, PropsWithChildren, useEffect } from 'react'
 import { protectedRoutes } from './protected-routes.data'
 
@@ -31,8 +31,6 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 			logout()
 		}
 	}, [pathname])
-
-	const router = useRouter()
 
 	const isProtectedRoute = protectedRoutes.some(
 		route => pathname?.startsWith(route)

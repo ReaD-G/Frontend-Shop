@@ -14,7 +14,6 @@ interface ICatalog {
 
 const Catalog: FC<ICatalog> = ({ products, isLoading, title }) => {
 	if (isLoading) return <Loader />
-
 	return (
 		<section>
 			{title && <Heading className="mb-5">{title}</Heading>}
