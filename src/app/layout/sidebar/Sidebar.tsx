@@ -1,29 +1,17 @@
 'use client'
 
 import { useCategories } from '@/hooks/queries/useCategories'
-import { useActions } from '@/hooks/useActions'
-import { useAuth } from '@/hooks/useAuth'
 import { useIsAdminPanel } from '@/hooks/useIsAdminPanel'
 import Loader from '@/ui/Loader'
 import cn from 'classnames'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { FC } from 'react'
-import { FiLogOut } from 'react-icons/fi'
 import { ADMIN_MENU } from './admin-menu.data'
 import { convertToMenuItems } from './convert-to-menu-items'
 
 const Sidebar: FC = () => {
 	const { isLoading, data } = useCategories()
-	const { push } = useRouter()
-	const { user } = useAuth()
-	const { logout } = useActions()
 	const { isAdminPanel, pathname } = useIsAdminPanel()
-
-	const handleLogout = () => {
-		logout()
-		push('/auth')
-	}
 
 	return (
 		<aside
@@ -63,15 +51,6 @@ const Sidebar: FC = () => {
 					<div>Categories not found!</div>
 				)}
 			</div>
-			{!!user && (
-				<button
-					className="text-white flex items-center ml-10"
-					onClick={() => handleLogout()}
-				>
-					<FiLogOut />
-					<span className="ml-2">Logout</span>
-				</button>
-			)}
 		</aside>
 	)
 }

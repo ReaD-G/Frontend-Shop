@@ -43,7 +43,6 @@ export default function RootLayout({ children }: PropsWithChildren<unknown>) {
 				<Providers>
 					<LayoutProvider>{children}</LayoutProvider>
 				</Providers>
-				<div id="modal" />
 			</body>
 		</html>
 	)

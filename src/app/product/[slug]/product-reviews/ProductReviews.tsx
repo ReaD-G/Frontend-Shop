@@ -1,8 +1,8 @@
 import { useAuth } from '@/hooks/useAuth'
 import { IReview } from '@/types/review.interface'
 import Heading from '@/ui/Heading'
-import Modal from '@/ui/modal/Modal'
-import { useState } from 'react'
+import ModalDialog from '@/ui/modal/ModalDialog'
+import { useDisclosure } from '@nextui-org/react'
 import LeaveReviewForm from './LeaveReviewFrom'
 import ReviewItem from './ReviewItem'
 
@@ -14,33 +14,29 @@ export default function ProductReviews({
 	reviews,
 	productId
 }: IProductReviews) {
-	const [isModalOpen, setModalOpen] = useState(false)
+	const { isOpen, onOpenChange, onClose } = useDisclosure()
 	const { user } = useAuth()
-
-	if (!reviews.length) return null
 
 	return (
 		<section id="reviews" className="mt-20">
 			<div className="mb-9">
 				<Heading className="mb-3">Reviews:</Heading>
 				{user && (
-					<button className="text-aqua" onClick={() => setModalOpen(true)}>
+					<button className="text-aqua" onClick={onOpenChange}>
 						Leave a review
 					</button>
 				)}
 			</div>
-
-			{user && (
-				<Modal isOpen={isModalOpen} closeModal={() => setModalOpen(false)}>
-					<LeaveReviewForm productId={productId} />
-				</Modal>
-			)}
 
 			<div className="grid grid-cols-4 gap-10">
 				{reviews.map(review => (
 					<ReviewItem key={review.id} review={review} />
 				))}
 			</div>
+
+			<ModalDialog isOpen={isOpen} onClose={onClose}>
+				<LeaveReviewForm productId={productId} />
+			</ModalDialog>
 		</section>
 	)
 }

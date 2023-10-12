@@ -21,7 +21,7 @@ export const useFilters = () => {
 				value
 			})
 		})
-	}, [])
+	}, [searchParams])
 
 	const updateQueryParams = (
 		key: keyof TypeProductDataFilters,
