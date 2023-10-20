@@ -73,7 +73,7 @@ const Auth: FC = () => {
 							})}
 						/>
 						<Button type="submit" className="w-full" variant="orange">
-							Let's go
+							Let&apos;s go
 						</Button>
 						<button
 							type="button"

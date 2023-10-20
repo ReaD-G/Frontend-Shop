@@ -7,7 +7,6 @@ const CSSTransition = (props: PropsWithChildren<CSSTransitionProps>) => {
 
 	return (
 		<_CSSTransition {...props} nodeRef={nodeRef}>
-			{/* @ts-expect-error: Let's ignore a single compiler error like this unreachable code */}
 			<>
 				{Children.map(props.children, child => {
 					// @ts-ignore

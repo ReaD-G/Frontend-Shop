@@ -34,7 +34,6 @@ const Carousel: FC<ICarousel> = ({ items, className = '' }) => {
 					unmountOnExit
 					mountOnEnter
 				>
-					{/* @ts-expect-error: Let's ignore a single compiler error like this unreachable code */}
 					<div
 						className={styles.item}
 						style={
