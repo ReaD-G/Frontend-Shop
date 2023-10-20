@@ -17,7 +17,7 @@ const Cart: FC = () => {
 	const { items, total } = useCart()
 
 	return (
-		<div className="relative" ref={ref}>
+		<div className="relative sm:flex hidden" ref={ref}>
 			<SquareButton
 				Icon={RiShoppingCartLine}
 				onClick={() => {

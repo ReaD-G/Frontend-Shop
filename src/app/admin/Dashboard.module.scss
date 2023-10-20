@@ -2,7 +2,7 @@
 	@apply grid grid-cols-4 gap-10;
 
 	.item {
-		@apply rounded-lg bg-white p-6 shadow;
+		@apply rounded-lg bg-white text-zinc-600 p-6 shadow;
 
 		transform: translateX(-100%);
 		opacity: 0;

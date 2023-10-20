@@ -78,7 +78,7 @@ const LeaveReviewForm: FC<{ productId: number }> = ({ productId }) => {
 						{Object.entries(errors) && (
 							<ul className="text-red animate-opacity text-sm list-disc pl-4 mt-3">
 								{Object.entries(errors).map(([_, error]) => (
-									<li>{error?.message}</li>
+									<li key={error.message}>{error?.message}</li>
 								))}
 							</ul>
 						)}

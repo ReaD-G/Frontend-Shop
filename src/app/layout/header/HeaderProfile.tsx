@@ -1,10 +1,10 @@
 'use client'
 
 import { useActions } from '@/hooks/useActions'
-import { useOutside } from '@/hooks/useOutside'
 import { useProfile } from '@/hooks/useProfile'
 import {
 	Avatar,
+	AvatarIcon,
 	Dropdown,
 	DropdownItem,
 	DropdownMenu,
@@ -15,58 +15,28 @@ import { FC } from 'react'
 
 const HeaderProfile: FC = () => {
 	const { profile } = useProfile()
-	console.log(profile)
 	const { logout } = useActions()
 	const { push } = useRouter()
 
-	const { isShow, ref, setIsShow } = useOutside(false)
-
 	const handleLogout = () => {
-		console.log('logout')
-		// logout()
-		// push('/auth')
+		push('/')
+		logout()
 	}
 
 	if (!profile?.avatarPath) return null
 
 	return (
-		// <div className="relative" ref={ref}>
-		// 	<button onClick={() => setIsShow(!isShow)}>
-		// 		{profile?.avatarPath && (
-		// 			<Image
-		// 				width={50}
-		// 				height={50}
-		// 				src={profile?.avatarPath}
-		// 				alt="profile"
-		// 				className="rounded-full border-primary border border-solid animate-opacity"
-		// 			/>
-		// 		)}
-		// 	</button>
-		// 	{isShow && (
-		// 		<div
-		// 			className="absolute w-40 right-2 z-20"
-		// 			style={{
-		// 				top: 'calc(100% + 1rem)'
-		// 			}}
-		// 		>
-		// 			<Link
-		// 				href="/my-orders"
-		// 				className="bg-white shadow py-2 px-4 block w-full rounded-md hover:text-primary duration-300 transition-colors"
-		// 			>
-		// 				My orders
-		// 			</Link>
-		// 		</div>
-		// 	)}
-		// </div>
 		<Dropdown placement="bottom-end" backdrop="blur">
 			<DropdownTrigger>
 				<Avatar
-					isBordered
+					classNames={{
+						base: 'bg-gradient-to-br from-[#FFB457] to-[#FF705B] sm:flex hidden',
+						icon: 'text-white/80'
+					}}
 					as="button"
-					className="transition-transform"
-					color="secondary"
-					size="sm"
-					src={profile?.avatarPath}
+					className="transition-transform border-white border-2"
+					size="md"
+					icon={<AvatarIcon />}
 				/>
 			</DropdownTrigger>
 			<DropdownMenu aria-label="Profile Actions" variant="flat">

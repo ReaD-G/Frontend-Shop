@@ -54,7 +54,7 @@ const CreateProduct: FC = () => {
 		}
 
 		updateNewProduct({ itemProduct: updateProduct, id: +id })
-		push('/admin/products')
+		push('/admin')
 	}
 
 	const imgList = (

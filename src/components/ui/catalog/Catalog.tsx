@@ -15,19 +15,13 @@ interface ICatalog {
 const Catalog: FC<ICatalog> = ({ products, isLoading, title }) => {
 	if (isLoading) return <Loader />
 	return (
-		<section>
-			{title && <Heading className="mb-5">{title}</Heading>}
-			{products.length ? (
-				<>
-					<div className="grid grid-cols-4 gap-10">
-						{products.map(product => (
-							<ProductItem product={product} key={product.id} />
-						))}
-					</div>
-				</>
-			) : (
-				<div>There are no products</div>
-			)}
+		<section className="container max-sm:mt-12 mb-10">
+			<Heading>{title}</Heading>
+			<div className="grid grid-cols-1 place-items-center sm:grid-cols-3 p-0 lg:grid-cols-4 gap-4">
+				{products.map(product => (
+					<ProductItem product={product} key={product.id} />
+				))}
+			</div>
 		</section>
 	)
 }

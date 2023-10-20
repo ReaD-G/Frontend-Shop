@@ -62,7 +62,7 @@ const EditProduct: FC<{ id: number }> = ({ id }) => {
 		}
 
 		mutate(updateProduct)
-		push('/admin/products')
+		push('/admin')
 	}
 
 	if (isFetching) {

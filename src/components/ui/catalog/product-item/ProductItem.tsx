@@ -1,48 +1,68 @@
 import { IProduct } from '@/types/product.interface'
-import AddToCartButton from '@/ui/catalog/product-item/AddToCartButton'
 import { convertPrice } from '@/utils/convertPrice'
-import Image from 'next/image'
-import Link from 'next/link'
-import { FC } from 'react'
 
+import {
+	Card,
+	CardBody,
+	CardFooter,
+	CardHeader,
+	Image
+} from '@nextui-org/react'
+import { useRouter } from 'next/navigation'
+import { FC } from 'react'
+import AddToCartButton from './AddToCartButton'
 import FavoriteButton from './FavoriteButton'
-import ProductRating from './ProductRating'
 
 const ProductItem: FC<{ product: IProduct }> = ({ product }) => {
+	const { push } = useRouter()
 	const image = product.images.length
 		? product.images[0].fileUrl
 		: '/images/noImage.png'
+
 	return (
-		<div className="animate-scaleIn">
-			<div className="bg-white rounded-xl relative overflow-hidden">
-				<div className="absolute top-2 right-3 z-1">
-					<FavoriteButton productId={product.id} />
+		<Card isFooterBlurred shadow="lg" className="w-[225px]">
+			<CardHeader className="flex flex-col overflow-hidden absolute z-20">
+				<div className="flex flex-row w-full justify-between items-center">
+					<h4 className="font-bold text-large">{product.name}</h4>
+					<div className="bg-white items-center  flex justify-center rounded p-1">
+						<FavoriteButton productId={product.id} />
+					</div>
+				</div>
+			</CardHeader>
+			<CardBody
+				className="overflow-visible p-0 items-center cursor-pointer"
+				onClick={() => push(`/product/${product.slug}`)}
+			>
+				<Image
+					shadow="sm"
+					radius="lg"
+					isBlurred
+					isZoomed
+					height={300}
+					width={250}
+					src={image}
+					alt={product.name}
+					className="w-full h-auto object-cover"
+				/>
+			</CardBody>
+			<CardFooter className="flex flex-col before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+				<div className="flex w-full items-center flex-row justify-between">
+					<p className="text-base font-semibold text-white/80">
+						{convertPrice(product.price)}
+					</p>
+					{/* <Button
+						className="text-tiny text-white bg-black/20"
+						variant="flat"
+						color="default"
+						radius="lg"
+						size="sm"
+					>
+						Add to Cart
+					</Button> */}
 					<AddToCartButton product={product} />
 				</div>
-				<Link href={`/product/${product.slug}`}>
-					<Image
-						width={225}
-						height={225}
-						src={image}
-						alt={product.name}
-						className="block mx-auto"
-					/>
-				</Link>
-			</div>
-			<Link href={`/product/${product.slug}`}>
-				<h3 className="mt-2 font-semibold">{product.name}</h3>
-			</Link>
-			<Link
-				href={`/category/${product.category.slug}`}
-				className="text-aqua text-xs mb-2"
-			>
-				{product.category.name}
-			</Link>
-			<ProductRating product={product} isText />
-			<div className=" text-2xl font-semibolt">
-				{convertPrice(product.price)}
-			</div>
-		</div>
+			</CardFooter>
+		</Card>
 	)
 }
 

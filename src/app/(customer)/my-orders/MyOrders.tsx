@@ -14,7 +14,7 @@ export default function MyOrders() {
 		}
 	)
 	return (
-		<>
+		<div className="flex flex-col">
 			<Heading>My orders</Heading>
 			<section>
 				{orders?.length ? (
@@ -37,6 +37,6 @@ export default function MyOrders() {
 					<div>Orders not found!</div>
 				)}
 			</section>
-		</>
+		</div>
 	)
 }

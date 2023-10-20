@@ -1,6 +1,5 @@
 'use client'
 
-import Auth from '@/app/(auth)/auth/Auth'
 import NotFound from '@/app/not-found'
 import { ADMIN_PANEL_URL } from '@/config/url.config'
 import { REFRESH_TOKEN } from '@/constants/token.contants'
@@ -44,8 +43,6 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 	if (user && isProtectedRoute) return <>{children}</>
 
 	if (user && isAdminRoute) return <NotFound />
-
-	if (pathname !== '/auth') return <Auth />
 
 	return null
 }

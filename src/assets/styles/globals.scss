@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 body {
-	@apply text-base text-black bg-bg-color;
+	// @apply text-base bg-gradient-to-bl from-[#374151] via-[#111827] to-[#000];
+	@apply text-base bg-[#161616];
 	font-family: var(--font-golos), sans-serif;
 }
 

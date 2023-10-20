@@ -1,5 +1,5 @@
+import { Image } from '@nextui-org/react';
 import cn from 'classnames'
-import Image from 'next/image'
 import { useState } from 'react'
 
 interface IPrioductGallery {
@@ -16,10 +16,9 @@ export function ProductsGallery({ images }: IPrioductGallery) {
 			<Image
 				src={image}
 				alt=""
-				width={500}
-				height={500}
+				width={350}
+				height={350}
 				className="rounded-lg overflow-hidden"
-				priority
 				draggable={false}
 			/>
 			<div
@@ -41,9 +40,8 @@ export function ProductsGallery({ images }: IPrioductGallery) {
 						<Image
 							src={image.fileUrl}
 							alt=""
-							width={100}
-							height={100}
-							priority
+							width={75}
+							height={75}
 							draggable={false}
 						/>
 					</button>

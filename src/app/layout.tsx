@@ -1,14 +1,17 @@
+import { Inter } from 'next/font/google'
 import type { PropsWithChildren } from 'react'
 
 import '@/assets/styles/globals.scss'
 import Providers from '@/providers/Providers'
 
-import { Golos_Text } from 'next/font/google'
-
 import { getSiteUrl } from '@/config/url.config'
 import { SITE_NAME } from '@/constants/app.constans'
 
 import type { Metadata } from 'next'
+
+import cn from 'classnames'
+import 'slick-carousel/slick/slick-theme.css'
+import 'slick-carousel/slick/slick.css'
 import LayoutProvider from './layout/LayoutProvider'
 
 export const metadata: Metadata = {
@@ -27,19 +30,14 @@ export const metadata: Metadata = {
 		emails: ['info@bruli-shop.com']
 	}
 }
-
-const golos = Golos_Text({
-	weight: ['400', '500', '600', '700'],
-	subsets: ['latin', 'cyrillic-ext'],
-	display: 'swap',
-	style: ['normal'],
-	variable: '--font-exo'
-})
+const inter = Inter({ subsets: ['latin'] })
 
 export default function RootLayout({ children }: PropsWithChildren<unknown>) {
 	return (
-		<html lang="ru" className={golos.variable}>
-			<body>
+		// <ClerkProvider> // Later update the login method for the web application
+		<html lang="ru">
+			<head />
+			<body className={cn('min-h-screen', inter.className)}>
 				<Providers>
 					<LayoutProvider>{children}</LayoutProvider>
 				</Providers>

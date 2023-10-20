@@ -1,29 +1,20 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
 import { PropsWithChildren } from 'react'
+import Footer from './footer/Footer'
 import Header from './header/Header'
-import Sidebar from './sidebar/Sidebar'
 
 export default function LayoutProvider({
 	children
 }: PropsWithChildren<unknown>) {
-	const pathname = usePathname()
-
-	return pathname !== '/auth' ? (
-		<div className="bg-secondary">
+	return (
+		<div className="flex relative flex-col min-h-screen items-center">
 			<Header />
-			<div
-				className="grid"
-				style={{
-					gridTemplateColumns: '.8fr 4fr'
-				}}
-			>
-				<Sidebar />
-				<main className="p-12 pb-52 bg-bg-color rounded-tl-lg">{children}</main>
+			{/* <main className="dark ">{children}</main> */}
+			<div className="items-center min-h-screen flex flex-col dark w-full">
+				{children}
 			</div>
+			<Footer />
 		</div>
-	) : (
-		<>{children}</>
 	)
 }

@@ -16,9 +16,9 @@ const Products: FC = () => {
 	}
 
 	return (
-		<>
-			<div className="flex justify-between">
-				<Heading className="mb-7">Products</Heading>
+		<div className="flex w-full flex-col ">
+			<div className="flex justify-between w-full items-center">
+				<Heading>Products</Heading>
 				<Button onClick={handleCreate} variant="light">
 					Create
 				</Button>
@@ -28,7 +28,7 @@ const Products: FC = () => {
 				listItems={data?.products}
 				removeHandler={mutate}
 			/>
-		</>
+		</div>
 	)
 }
 

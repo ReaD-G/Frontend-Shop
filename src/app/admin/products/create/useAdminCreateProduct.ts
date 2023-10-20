@@ -23,7 +23,7 @@ export const useAdminCreateProduct = () => {
 
 		{
 			onSuccess({ data }) {
-				console.log('ss', data)
+				console.log('data', data)
 			}
 		}
 	)

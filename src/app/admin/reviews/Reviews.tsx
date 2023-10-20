@@ -1,6 +1,5 @@
 'use client'
 
-import Heading from '@/ui/Heading'
 import AdminList from '@/ui/admin/admin-list/AdminList'
 import { FC } from 'react'
 import { useAdminReviews } from './useAdminReviews'
@@ -9,10 +8,9 @@ const Reviews: FC = () => {
 	const { data, isFetching } = useAdminReviews()
 
 	return (
-		<>
-			<Heading className="mb-7">Reviews</Heading>
+		<div className="flex flex-col w-full">
 			<AdminList isLoading={isFetching} listItems={data} />
-		</>
+		</div>
 	)
 }
 
