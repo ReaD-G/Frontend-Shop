@@ -53,9 +53,7 @@ const EditProduct: FC<{ id: number }> = ({ id }) => {
 		const updateProduct = {
 			name: fields.name || data.name,
 			description: fields.description || data.description,
-			images:
-				images.map(image => JSON.stringify(image)) ||
-				(data.images.map(image => JSON.stringify(image)) as any),
+			images: images || data.images,
 			price: +fields.price || data.price,
 			slug: data.slug,
 			categoryId: fields.categoryId || data.category.id
@@ -71,7 +69,7 @@ const EditProduct: FC<{ id: number }> = ({ id }) => {
 
 	const imgList = (
 		<div className="overflow-auto flex flex-row gap-5">
-			{data.images.map(image => (
+			{images.map(image => (
 				<div key={image.fileKey} className="relative bg-white rounded-xl">
 					<div
 						className="absolute p-1 right-1 z-1 rounded cursor-pointer active:opacity-5"

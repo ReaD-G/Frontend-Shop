@@ -15,6 +15,7 @@ import FavoriteButton from './FavoriteButton'
 
 const ProductItem: FC<{ product: IProduct }> = ({ product }) => {
 	const { push } = useRouter()
+
 	const image = product.images.length
 		? product.images[0].fileUrl
 		: '/images/noImage.png'

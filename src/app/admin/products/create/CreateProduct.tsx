@@ -47,7 +47,7 @@ const CreateProduct: FC = () => {
 		const updateProduct = {
 			name: fields.name,
 			description: fields.description,
-			images: images.map(image => JSON.stringify(image)) as any,
+			images: images,
 			price: +fields.price,
 			categoryId: fields.categoryId,
 			slug: ''
