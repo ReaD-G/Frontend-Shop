@@ -4,6 +4,7 @@ import { StatisticsService } from '@/services/statistics.service'
 import { convertPrice } from '@/utils/convertPrice'
 import { Tab, Tabs } from '@nextui-org/react'
 import { useQuery } from '@tanstack/react-query'
+import { usePathname, useRouter } from 'next/navigation'
 import { FC } from 'react'
 import styles from './Dashboard.module.scss'
 import Categories from './categories/Categories'
@@ -12,6 +13,8 @@ import Products from './products/Products'
 import Reviews from './reviews/Reviews'
 
 const Dashboard: FC = () => {
+	const { replace } = useRouter()
+	const pathname = usePathname()
 	const { data } = useQuery(['statistics'], () => StatisticsService.getMain(), {
 		select: ({ data }) => data
 	})
@@ -34,7 +37,12 @@ const Dashboard: FC = () => {
 							))}
 					</div>
 				</Tab>
-				<Tab key="products" title="Products" className="flex  w-full container">
+				<Tab
+					// href={replace(pathname)}
+					key="products"
+					title="Products"
+					className="flex w-full container"
+				>
 					<Products />
 				</Tab>
 				<Tab

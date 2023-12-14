@@ -30,7 +30,7 @@ const HeaderProfile: FC = () => {
 			<DropdownTrigger>
 				<Avatar
 					classNames={{
-						base: 'bg-gradient-to-br from-[#FFB457] to-[#FF705B] sm:flex hidden',
+						base: 'bg-gradient-to-br from-red-primary to-black sm:flex hidden',
 						icon: 'text-white/80'
 					}}
 					as="button"
@@ -41,8 +41,8 @@ const HeaderProfile: FC = () => {
 			</DropdownTrigger>
 			<DropdownMenu aria-label="Profile Actions" variant="flat">
 				<DropdownItem textValue="profile" key="profile" className="h-14 gap-2">
-					<p className="font-semibold">Signed in as</p>
-					<p className="font-semibold">{profile.email}</p>
+					<p className="font-semibold">{profile.name}</p>
+					<p className="font-semibold">{profile.phone}</p>
 				</DropdownItem>
 				<DropdownItem
 					textValue="orders"

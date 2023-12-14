@@ -28,11 +28,11 @@ const Range: FC<IRange> = ({
 
 	useEffect(() => {
 		onChangeFromValue(deboucedFromValue)
-	}, [deboucedFromValue])
+	}, [deboucedFromValue, onChangeFromValue])
 
 	useEffect(() => {
 		onChangeToValue(deboucedToValue)
-	}, [deboucedToValue])
+	}, [deboucedToValue, onChangeToValue])
 
 	return (
 		<div className={styles.range}>

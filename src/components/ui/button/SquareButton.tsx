@@ -1,3 +1,4 @@
+import { Badge } from '@nextui-org/react'
 import { FC } from 'react'
 import { IconType } from 'react-icons'
 
@@ -9,16 +10,22 @@ interface ISquareButton {
 
 const SquareButton: FC<ISquareButton> = ({ Icon, onClick, number }) => {
 	return (
-		<button
-			onClick={onClick}
-			className="h-10 w-10 bg-primary flex items-center justify-center hover:bg-primary/90 transition-colors duration-200 relative rounded"
-		>
-			{!!number && (
-				<span className="flex h-4 w-4 items-center justify-center rounded-full bg-white p-0.5 text-[0.75rem] text-secondary absolute -top-1 -right-1">
-					{number}
-				</span>
-			)}
-			<Icon className="text-secondary" size={21} />
+		<button onClick={onClick} className="flex items-center justify-center">
+			<Badge
+				variant="faded"
+				size="sm"
+				className="text-black bg-white"
+				disableOutline
+				content={number}
+				isDot
+				isInvisible={!number}
+				shape="circle"
+			>
+				<Icon
+					className="h-[28px] w-[28px] text-secondary hover:text-red-primary "
+					size={21}
+				/>
+			</Badge>
 		</button>
 	)
 }

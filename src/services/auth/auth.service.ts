@@ -1,11 +1,11 @@
 import { axiosClassic } from '@/api/api.interceptor'
-import Cookies from 'js-cookie'
-import { IAuthResponse, IEmailPassword } from '../../store/user/user.interface'
-import { saveToStorage } from './auth.helper'
 import { REFRESH_TOKEN } from '@/constants/token.contants'
+import Cookies from 'js-cookie'
+import { IAuthResponse, IPhone } from '../../store/user/user.interface'
+import { saveToStorage } from './auth.helper'
 
 export const AuthService = {
-	async main(type: 'login' | 'register', data: IEmailPassword) {
+	async main(type: 'login' | 'register', data: IPhone) {
 		const response = await axiosClassic<IAuthResponse>({
 			url: `/auth/${type}`,
 			method: 'POST',

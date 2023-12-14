@@ -2,10 +2,8 @@
 
 import { ProductService } from '@/services/product/product.service'
 import { IProduct } from '@/types/product.interface'
-import Heading from '@/ui/Heading'
 import { useQuery } from '@tanstack/react-query'
 import ProductsGallery from './ProductGallery'
-import ProductReviewCount from './ProductReviewsCount'
 import SimilarProducts from './SimilarProducts'
 import ProductInformation from './product-information/ProductInformation'
 import ProductReviews from './product-reviews/ProductReviews'
@@ -31,19 +29,19 @@ export default function Product({
 	)
 
 	return (
-		<div className="flex flex-col sm:px-4">
-			<Heading className="mb-1 mt-4 items-start w-full">{product.name}</Heading>
-			<ProductReviewCount product={product} />
-			<div className="flex flex-row mt-6">
-				<ProductsGallery images={product.images} />
-				<ProductInformation product={product} />
+		<section className="mx-auto max-w-screen-xl">
+			<div className="container mx-auto px-4">
+				<div className="lg:col-gap-12 xl:col-gap-16 mt-8 grid grid-cols-1 gap-12 lg:mt-12 lg:grid-cols-5 lg:gap-16">
+					<div className="lg:col-span-3 lg:row-end-1">
+						<ProductsGallery images={product.images} />
+					</div>
+					<div className="lg:col-span-2 lg:row-span-2 lg:row-end-2">
+						<ProductInformation product={product} />
+					</div>
+				</div>
+				<SimilarProducts similarProducts={similarProducts} />
+				<ProductReviews reviews={product.reviews} productId={product.id} />
 			</div>
-			<div className="opacity-80 font-light">
-				<div className="font-semibold mb-1">Description:</div>
-				{product.description}
-			</div>
-			<SimilarProducts similarProducts={similarProducts} />
-			<ProductReviews reviews={product.reviews} productId={product.id} />
-		</div>
+		</section>
 	)
 }

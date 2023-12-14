@@ -1,4 +1,5 @@
 import Home from '@/app/Home'
+import { CategoryService } from '@/services/categoty.service'
 import { ProductService } from '@/services/product/product.service'
 import type { Metadata } from 'next'
 
@@ -10,16 +11,26 @@ export const metadata: Metadata = {
 export const revalidate = 60
 
 async function getProducts() {
+	const { data: categories } = await CategoryService.getAll()
 	const data = await ProductService.getAll({
 		page: 1,
-		perPage: 4,
+		perPage: 5,
 		ratings: ''
 	})
 
-	return data
+	return {
+		data,
+		categories
+	}
 }
 
 export default async function Page() {
-	const data = await getProducts()
-	return <Home products={data.products} length={data.length} />
+	const { data, categories } = await getProducts()
+	return (
+		<Home
+			products={data.products}
+			categories={categories}
+			length={data.length}
+		/>
+	)
 }

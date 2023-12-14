@@ -24,8 +24,8 @@ const FavoriteButton: FC<{ productId: number }> = ({ productId }) => {
 	const isExists = profile.favorites.some(favorite => favorite.id === productId)
 
 	return (
-		<button onClick={() => mutate()} className="text-primary">
-			{isExists ? <AiFillHeart /> : <AiOutlineHeart />}
+		<button onClick={() => mutate()} className="text-red-primary">
+			{isExists ? <AiFillHeart size={25} /> : <AiOutlineHeart size={25} />}
 		</button>
 	)
 }

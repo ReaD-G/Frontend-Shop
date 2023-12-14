@@ -11,9 +11,9 @@ export default function LayoutProvider({
 		<div className="flex relative flex-col min-h-screen items-center">
 			<Header />
 			{/* <main className="dark ">{children}</main> */}
-			<div className="items-center min-h-screen flex flex-col dark w-full">
+			<main className="items-center min-h-screen flex flex-col dark w-full">
 				{children}
-			</div>
+			</main>
 			<Footer />
 		</div>
 	)

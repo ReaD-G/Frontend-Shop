@@ -2,7 +2,7 @@ import { IProduct } from '@/types/product.interface'
 import { FC, useState } from 'react'
 import { Rating } from 'react-simple-star-rating'
 
-interface IProductRating  {
+interface IProductRating {
 	product: IProduct
 	isText?: boolean
 }
@@ -15,7 +15,7 @@ const ProductRating: FC<IProductRating> = ({ product, isText = false }) => {
 		) || 0
 	)
 	return (
-		<div className="mb-2">
+		<div className="mb-2 flex items-center">
 			{!!product.reviews.length && (
 				<span className="mr-1">
 					<Rating
@@ -24,7 +24,7 @@ const ProductRating: FC<IProductRating> = ({ product, isText = false }) => {
 						SVGstyle={{
 							display: 'inline-block'
 						}}
-						size={20}
+						size={25}
 						allowFraction
 						transition
 					/>

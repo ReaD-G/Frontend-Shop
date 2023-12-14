@@ -82,12 +82,10 @@ const CreateProduct: FC = () => {
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
-			className="rounded-lg bg-white shadow-sm p-8 m-auto w-full h-full flex items-center flex-col justify-between"
+			className="rounded-lg shadow-sm p-8 m-auto w-full h-full flex items-center flex-col justify-between container"
 		>
 			<div className="flex flex-col w-full">
-				<Heading className="text-xl capitalize text-center mb-4">
-					Create product
-				</Heading>
+				<Heading className="text-xl text-center mb-4">Создать продукт</Heading>
 
 				{/* Upload images  */}
 				<div className="flex flex-col items-center">
@@ -141,11 +139,7 @@ const CreateProduct: FC = () => {
 			<Button type="submit" className="w-full mb-5" variant="orange">
 				Create
 			</Button>
-			<Button
-				className="w-full"
-				variant="white"
-				onClick={() => push('/admin/products')}
-			>
+			<Button className="w-full" variant="white" onClick={() => push('/admin')}>
 				Cancel
 			</Button>
 		</form>

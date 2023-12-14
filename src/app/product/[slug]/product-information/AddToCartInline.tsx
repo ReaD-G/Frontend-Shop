@@ -1,10 +1,15 @@
 import { useActions } from '@/hooks/useActions'
 import { useCart } from '@/hooks/useCart'
 import { IProduct } from '@/types/product.interface'
-import Button from '@/ui/button/Button'
+import { Button } from '@nextui-org/react'
+// import Button from '@/ui/button/Button'
+import cn from 'classnames'
 import { FC } from 'react'
 
-const AddToCartInline: FC<{ product: IProduct }> = ({ product }) => {
+const AddToCartInline: FC<{ product: IProduct; className?: string }> = ({
+	product,
+	className
+}) => {
 	const { addToCart, removeFromCart } = useActions()
 	const { items } = useCart()
 
@@ -13,9 +18,14 @@ const AddToCartInline: FC<{ product: IProduct }> = ({ product }) => {
 	)
 
 	return (
-		<div className="mt-5">
+		<div className="mt-1.5 lg:pl-5 inline-block ">
 			<Button
-				variant="orange"
+				className={cn(
+					className,
+					'bg-red-primary text-white shadow-lg text-sm font-medium hover:bg-red-700 tracking-wide uppercase '
+				)}
+				variant="solid"
+				fullWidth
 				onClick={() =>
 					currentElement
 						? removeFromCart({ id: currentElement.id })
@@ -26,7 +36,7 @@ const AddToCartInline: FC<{ product: IProduct }> = ({ product }) => {
 						  })
 				}
 			>
-				{currentElement ? 'Remove from cart' : 'Add to cart'}
+				{currentElement ? 'Удалить из карзины' : 'Добавить в корзину'}
 			</Button>
 		</div>
 	)

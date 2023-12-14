@@ -15,9 +15,9 @@ interface ICatalog {
 const Catalog: FC<ICatalog> = ({ products, isLoading, title }) => {
 	if (isLoading) return <Loader />
 	return (
-		<section className="container max-sm:mt-12 mb-10">
-			<Heading>{title}</Heading>
-			<div className="grid grid-cols-1 place-items-center sm:grid-cols-3 p-0 lg:grid-cols-4 gap-4">
+		<section className="py-12 sm-py-16 container">
+			<Heading className="px-4 sm:px-0">{title}</Heading>
+			<div className="grid grid-cols-1 place-items-center sm:grid-cols-2 md:grid-cols-3 p-0 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 mt-4">
 				{products.map(product => (
 					<ProductItem product={product} key={product.id} />
 				))}

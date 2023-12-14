@@ -18,7 +18,10 @@ const colors = {
 	},
 	'bg-color': '#F2F2F5',
 	aqua: '#268697',
-	red: twColors.red[400]
+	red: {
+		primary: '#F41818',
+		400: twColors.red[400]
+	}
 }
 
 module.exports = withUt({

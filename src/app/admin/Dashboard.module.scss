@@ -4,16 +4,6 @@
 	.item {
 		@apply rounded-lg bg-white text-zinc-600 p-6 shadow;
 
-		transform: translateX(-100%);
-		opacity: 0;
-		animation: slideInLeft 1s forwards;
-
-		@for $i from 1 through 4 {
-			&:nth-child(#{$i}) {
-				animation-delay: 0.4s * $i;
-			}
-		}
-
 		> div {
 			&:first-child {
 				@apply mb-2;
@@ -23,16 +13,5 @@
 				@apply text-2xl font-semibold;
 			}
 		}
-	}
-}
-
-@keyframes slideInLeft {
-	from {
-		transform: translateX(-100%);
-		opacity: 0;
-	}
-	to {
-		transform: translateX(0);
-		opacity: 1;
 	}
 }

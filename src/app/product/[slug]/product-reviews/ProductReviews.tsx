@@ -18,17 +18,17 @@ export default function ProductReviews({
 	const { user } = useAuth()
 
 	return (
-		<section id="reviews" className="mt-20">
+		<section id="reviews" className="mt-20 mb-20">
 			<div className="mb-9">
-				<Heading className="mb-3">Reviews:</Heading>
+				<Heading className="mb-3">Отзовы:</Heading>
 				{user && (
 					<button className="text-aqua" onClick={onOpenChange}>
-						Leave a review
+						Оставить отзыв
 					</button>
 				)}
 			</div>
 
-			<div className="grid grid-cols-4 gap-10">
+			<div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4">
 				{reviews.map(review => (
 					<ReviewItem key={review.id} review={review} />
 				))}

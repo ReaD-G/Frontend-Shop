@@ -5,7 +5,7 @@ import { Rating } from 'react-simple-star-rating'
 
 const ReviewItem: FC<{ review: IReview }> = ({ review }) => {
 	return (
-		<div className="bg-white rounded-lg shadow-md p-6">
+		<div className=" bg-[#323232] rounded-lg shadow-md p-6">
 			<div className="flex items-center mb-2">
 				<Image
 					alt={review.user.name}

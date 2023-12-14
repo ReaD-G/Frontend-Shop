@@ -16,7 +16,7 @@ const Products: FC = () => {
 	}
 
 	return (
-		<div className="flex w-full flex-col ">
+		<div className="flex w-full flex-col">
 			<div className="flex justify-between w-full items-center">
 				<Heading>Products</Heading>
 				<Button onClick={handleCreate} variant="light">

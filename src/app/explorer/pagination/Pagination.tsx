@@ -14,7 +14,7 @@ const Pagination: FC<IPagination> = ({
 }) => {
 	return (
 		<div className="text-center mt-16">
-			{Array.from({ length: numberPages > 1 ? numberPages : 1 }).map(
+			{Array.from({ length: numberPages > 1 ? numberPages : null }).map(
 				(_, index) => {
 					const pageNumber = (index + 1).toString()
 					return (

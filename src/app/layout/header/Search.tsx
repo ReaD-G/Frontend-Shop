@@ -1,30 +1,19 @@
 import { Input } from '@nextui-org/react'
-import { useRouter } from 'next/navigation'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { BsSearch } from 'react-icons/bs'
 
-const Search: FC = () => {
-	const [searchTerm, setSearchTerm] = useState<string>('')
-
-	const { push } = useRouter()
-
-	const handleSearch = e => {
-		setSearchTerm(e)
-		push(`/explorer?searchTerm=${e}`)
-	}
-
-	const handleClear = () => {
-		setSearchTerm('')
-		push('/')
-	}
-
+const Search: FC<{
+	searchTerm: string
+	onClear: () => void
+	onSearch: (e) => void
+}> = ({ onClear, onSearch, searchTerm }) => {
 	return (
 		<Input
 			isClearable
 			radius="lg"
 			value={searchTerm}
-			onValueChange={e => handleSearch(e)}
-			onClear={handleClear}
+			onValueChange={e => onSearch(e)}
+			onClear={onClear}
 			classNames={{
 				label: 'text-black/50 dark:text-white/90',
 				input: [
@@ -34,7 +23,7 @@ const Search: FC = () => {
 				],
 				innerWrapper: 'bg-transparent',
 				inputWrapper: [
-					'shadow-xl',
+					'shadow-lg ',
 					'bg-default-200/50',
 					'dark:bg-default/60',
 					'backdrop-blur-xl',
