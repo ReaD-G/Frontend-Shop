@@ -1,8 +1,9 @@
 import { FC } from 'react'
+import cn from 'classnames'
 
-const Loader: FC = () => {
+const Loader: FC<{className?: string}> = ({className}) => {
 	return (
-		<div className="flex justify-center items-center">
+		<div className={cn("flex justify-center items-center container min-h-screen flex-col", className)}>
 			<svg
 				width="44"
 				height="44"
@@ -57,6 +58,7 @@ const Loader: FC = () => {
 					</circle>
 				</g>
 			</svg>
+			Загрузка...
 		</div>
 	)
 }

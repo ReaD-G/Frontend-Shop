@@ -2,13 +2,12 @@
 
 import { ProductService } from '@/services/product/product.service'
 import { TypePaginationProducts } from '@/types/product.interface'
-import Heading from '@/ui/Heading'
-import Button from '@/ui/button/Button'
+
 import Catalog from '@/ui/catalog/Catalog'
 import { useQuery } from '@tanstack/react-query'
-import cn from 'classnames'
+import { useRouter } from 'next/navigation'
 import { FC, useState } from 'react'
-import styles from './ProductExplorer.module.scss'
+import Search from '../layout/header/Search'
 import Filters from './filters/Filters'
 import Pagination from './pagination/Pagination'
 import SortDropdown from './sort/SortDropdown'
@@ -19,9 +18,8 @@ interface IProductExplorer {
 }
 
 const ProductExplorer: FC<IProductExplorer> = ({ initialProducts }) => {
-	const [isFilterOpen, setIsFilterOpen] = useState(false)
-
 	const { isFilterUpdated, queryParams, updateQueryParams } = useFilters()
+	const [searchTerm, setSearchTerm] = useState<string>(queryParams.searchTerm)
 
 	const { data, isFetching } = useQuery(
 		['product explorer', queryParams],
@@ -32,42 +30,43 @@ const ProductExplorer: FC<IProductExplorer> = ({ initialProducts }) => {
 		}
 	)
 
+	const { replace } = useRouter()
+
+	const handleSearch = e => {
+		setSearchTerm(e)
+		replace(`/explorer?searchTerm=${e}`)
+	}
+
+	const handleClear = () => {
+		setSearchTerm('')
+	}
+
 	return (
-		<>
-			<div className="flex items-center justify-between mb-7">
-				<Heading>
-					{queryParams.searchTerm
-						? `Search by query ${queryParams.searchTerm}`
-						: 'Explorer'}
-				</Heading>
+		<div className="container">
+			<div className="mt-4 flex flex-row items-center justify-between mb-7 ">
+				<div className="flex w-1/2">
+					<Search
+						searchTerm={searchTerm}
+						onClear={handleClear}
+						onSearch={handleSearch}
+					/>
+				</div>
 				<SortDropdown />
 			</div>
-
-			<Button
-				variant="white"
-				onClick={() => setIsFilterOpen(!isFilterOpen)}
-				className="mb-7"
-			>
-				{isFilterOpen ? 'Close' : 'Open'} filters
-			</Button>
-			<div
-				className={cn(styles.explorer, {
-					[styles.filterOpened]: isFilterOpen
-				})}
-			>
-				<aside>
+			<div className="flex flex-row container justify-between">
+				<div className="w-1/3">
 					<Filters />
-				</aside>
-				<section>
+				</div>
+				<div>
 					<Catalog products={data.products} isLoading={isFetching} />
 					<Pagination
 						changePage={page => updateQueryParams('page', page.toString())}
 						currentPage={queryParams.page}
 						numberPages={data.length / +queryParams.perPage}
 					/>
-				</section>
+				</div>
 			</div>
-		</>
+		</div>
 	)
 }
 

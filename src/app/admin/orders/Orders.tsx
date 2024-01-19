@@ -1,7 +1,6 @@
 'use client'
 
 import Heading from '@/ui/Heading'
-import AdminList from '@/ui/admin/admin-list/AdminList'
 import { FC } from 'react'
 import { useAdminOrders } from './useAdminOrders'
 
@@ -11,7 +10,7 @@ const Orders: FC = () => {
 	return (
 		<>
 			<Heading className="mb-7">Orders</Heading>
-			<AdminList isLoading={isFetching} listItems={data} />
+			{/* <AdminList isLoading={isFetching} listItems={data} /> */}
 		</>
 	)
 }

@@ -1,49 +1,28 @@
 'use client'
 
-import Slider from 'react-slick'
-import Slide from './Slide'
+import { Image } from '@nextui-org/react'
+import cn from 'classnames'
+import { Caveat } from 'next/font/google'
+
+const caveat = Caveat({
+	weight: '400',
+	variable: '--font-zeyada',
+	subsets: ['latin']
+})
 
 const Hero = () => {
-	var settings = {
-		dots: false,
-		infinite: true,
-		slidesToShow: 1,
-		slidesToScroll: 1,
-		autoplay: true,
-		pauseOnHover: true
-	}
-
-	const slideData = [
-		{
-			id: 0,
-			img: '/images/1.jpg',
-			title: 'Добро пожаловать',
-			mainTitle:
-				'Это один из самых брендовых и современных магазинов с бижутерией ручной работы',
-			price: ''
-		},
-		{
-			id: 1,
-			img: '/images/2.jpg',
-			title: 'Трендовый товар',
-			mainTitle: '',
-			price: '25 Br'
-		}
-	]
-
 	return (
-		<div className="container py-6 sm:block hidden">
-			<Slider {...settings}>
-				{slideData.map(item => (
-					<Slide
-						img={item.img}
-						key={item.id}
-						title={item.title}
-						price={item.price}
-						mainTitle={item.mainTitle}
-					/>
-				))}
-			</Slider>
+		<div className="container hidden sm:flex my-5 flex-row items-center justify-between rounded-lg ">
+			<div className={cn('flex flex-col w-3/4', caveat.className)}>
+				<span className="text-3xl font-semibold text-black">
+					Откройте для себя лучшую коллекцию украшений для мужчин и женщин.
+				</span>
+				<span className="text-xl mt-2">
+					Делайте покупки по категориям, брендам или просматривайте наши
+					избранные товары!
+				</span>
+			</div>
+			<Image isBlurred src="./favicon.png" alt="iconHero" />
 		</div>
 	)
 }

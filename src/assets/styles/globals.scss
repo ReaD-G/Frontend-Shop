@@ -4,7 +4,8 @@
 
 body {
 	// @apply text-base bg-gradient-to-bl from-[#374151] via-[#111827] to-[#000];
-	@apply text-base bg-[#161616];
+	// @apply text-base bg-[#F5F5DC];
+	@apply text-base bg-white text-black;
 	font-family: var(--font-golos), sans-serif;
 }
 
@@ -27,7 +28,7 @@ body {
 	}
 
 	&.btn-orange {
-		@apply bg-primary text-white;
+		@apply bg-primary text-black;
 	}
 
 	&.btn-large {

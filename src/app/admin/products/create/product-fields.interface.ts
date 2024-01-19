@@ -4,4 +4,5 @@ export interface IProductFields {
 	description: string
 	images: { fileUrl: string; fileKey: string }[]
 	categoryId: number
+	slug: string
 }

@@ -1,32 +1,43 @@
 'use client'
 
+import { IProduct } from '@/types/product.interface'
 import Heading from '@/ui/Heading'
-import AdminList from '@/ui/admin/admin-list/AdminList'
+import Catalog from '@/ui/catalog/Catalog'
 import { Button } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
-import { FC } from 'react'
-import { useAdminProducts } from './useAdminProducts'
 
-const Products: FC = () => {
-	const { data, isFetching, mutate } = useAdminProducts()
+const Products = ({
+	products,
+	createUrl,
+	handleDelete
+}: {
+	products: IProduct[]
+	createUrl: string
+	handleDelete: (id: number) => void
+}) => {
 	const { push } = useRouter()
 
 	const handleCreate = () => {
-		push(data.createUrl)
+		push(createUrl)
 	}
 
 	return (
-		<div className="flex w-full flex-col ">
+		<div className="flex w-full flex-col">
 			<div className="flex justify-between w-full items-center">
-				<Heading>Products</Heading>
-				<Button onClick={handleCreate} variant="light">
-					Create
+				<Heading className="text-xl text-semibold">Все продукты</Heading>
+				<Button
+					onClick={handleCreate}
+					size="md"
+					className="bg-transparent hover:text-lilac"
+				>
+					<span className="text-xl">Создать</span>
 				</Button>
 			</div>
-			<AdminList
-				isLoading={isFetching}
-				listItems={data?.products}
-				removeHandler={mutate}
+			<Catalog
+				removeHandler={handleDelete}
+				isUpdate
+				isAll
+				products={products || []}
 			/>
 		</div>
 	)

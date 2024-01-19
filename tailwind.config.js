@@ -4,21 +4,26 @@ const { withUt } = require('uploadthing/tw')
 const { nextui } = require('@nextui-org/react')
 
 const colors = {
-	foreground: '#ECEDEE', // or 50 to 900 DEFAULT
+	foreground: 'black', // or 50 to 900 DEFAULT
 	background: '#000000', // or DEFAULT
 	transparent: twColors.transparent,
 	black: '#000',
 	gray: '#CDCDCD',
+	lilac: '#dea8f7',
 	white: twColors.white,
 	primary: {
-		DEFAULT: '#FF9902'
+		DEFAULT: '#dea8f7',
+		lical: '#dea8f7'
 	},
 	secondary: {
 		DEFAULT: '#fff'
 	},
 	'bg-color': '#F2F2F5',
 	aqua: '#268697',
-	red: twColors.red[400]
+	red: {
+		primary: '#F41818',
+		400: twColors.red[400]
+	}
 }
 
 module.exports = withUt({
@@ -77,14 +82,13 @@ module.exports = withUt({
 			}
 		}
 	},
-	darkMode: 'class',
 	plugins: [
 		require('tailwindcss-animate'),
 		nextui({
 			prefix: 'nextui', // prefix for themes variables
 			addCommonColors: false, // override common colors (e.g. "blue", "green", "pink").
-			defaultTheme: 'dark', // default theme from the themes object
-			defaultExtendTheme: 'dark', // default theme to extend on custom themes
+			defaultTheme: 'light', // default theme from the themes object
+			defaultExtendTheme: 'light', // default theme to extend on custom themes
 			layout: {
 				disabledOpacity: '0.3', // opacity-[0.3]
 				radius: {
@@ -99,7 +103,7 @@ module.exports = withUt({
 				}
 			},
 			themes: {
-				dark: {
+				light: {
 					colors
 				}
 			}

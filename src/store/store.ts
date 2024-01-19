@@ -11,16 +11,16 @@ import {
 } from 'redux-persist'
 
 import { filtersSlice } from '@/app/explorer/filters/filters.slice'
-import { carouselSlice } from './carousel/carousel.slice'
 import { cartSlice } from './cart/cart.slice'
 import { userSlice } from './user/user.slice'
+import { profileSlice } from './profile/profile.slice'
 
 const isClient = typeof window !== 'undefined'
 
 const combinedReducers = combineReducers({
 	user: userSlice.reducer,
+	profile: profileSlice.reducer,
 	cart: cartSlice.reducer,
-	carousel: carouselSlice.reducer,
 	filters: filtersSlice.reducer
 })
 

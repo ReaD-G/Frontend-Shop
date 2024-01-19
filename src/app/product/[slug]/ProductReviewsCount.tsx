@@ -23,7 +23,7 @@ const ProductReviewCount = ({ product }: IProductReviews) => {
 					offset={-50}
 					duration={1000}
 				>
-					{reviewsLength} Reviews <FiChevronRight className="inline" />
+					{reviewsLength} Отзовы <FiChevronRight className="inline" />
 				</Link>
 			</div>
 		</div>

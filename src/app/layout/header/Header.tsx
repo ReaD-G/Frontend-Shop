@@ -1,11 +1,11 @@
 'use client'
 
+import { useActions } from '@/hooks/useActions'
 import { useAuth } from '@/hooks/useAuth'
 import { useIsAdminPanel } from '@/hooks/useIsAdminPanel'
 import AuthModal from '@/ui/modal/AuthModal'
+import RegisterModal from '@/ui/modal/RegisterModal'
 import {
-	Button,
-	Image,
 	Link,
 	Navbar,
 	NavbarBrand,
@@ -16,28 +16,100 @@ import {
 	NavbarMenuToggle,
 	useDisclosure
 } from '@nextui-org/react'
+import cn from 'classnames'
+import { Zeyada } from 'next/font/google'
 import { useRouter } from 'next/navigation'
 import { FC, useState } from 'react'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { MdOutlineAdminPanelSettings } from 'react-icons/md'
 import HeaderProfile from './HeaderProfile'
-import Search from './Search'
 import HeaderCart from './cart/cart-item/HeaderCart'
 
-const Header: FC = () => {
-	const { isAdminPanel } = useIsAdminPanel()
-	const { user } = useAuth()
-	const { push } = useRouter()
+const zeyada = Zeyada({
+	weight: '400',
+	variable: '--font-zeyada',
+	subsets: ['latin']
+})
 
+const Header: FC = () => {
+	const { user } = useAuth()
+	const { isAdminPanel } = useIsAdminPanel()
+
+	const { push } = useRouter()
+	const { logout } = useActions()
+	const [modal, setModal] = useState('')
+
+	const handleLogout = () => {
+		push('/')
+		logout()
+		setIsMenuOpen(false)
+	}
+	
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-	const menuItems = ['Favorites', 'Search', 'My orders', 'Cart', 'Log Out']
+	const openAuthModal = () => {
+		setIsMenuOpen(false)
+		setModal('auth')
+		onOpenChange()
+	}
 
-	const { isOpen, onOpenChange, onClose } = useDisclosure()
+	const openRegisterModal = () => {
+		setIsMenuOpen(false)
+		setModal('register')
+		onOpenChange()
+	}
+
+	const menuItems = user
+		? [
+				{ name: 'Главная', link: '/', color: 'foreground' },
+				{ name: 'Все Товары', link: '/category/all', color: 'foreground' },
+				{
+					name: 'Женские Украшения',
+					link: '/category/women',
+					color: 'foreground'
+				},
+				{
+					name: 'Мужские Украшения',
+					link: '/category/men',
+					color: 'foreground'
+				},
+				{ name: 'Корзина', link: '/checkout', color: 'foreground' },
+				{ name: 'Выйти', onClick: handleLogout, color: 'danger' }
+			]
+		: [
+				{ name: 'Главная', link: '/', color: 'foreground' },
+				{ name: 'Все Товары', link: '/category/all', color: 'foreground' },
+				{
+					name: 'Женские Украшения',
+					link: '/category/women',
+					color: 'foreground'
+				},
+				{
+					name: 'Мужские Украшения',
+					link: '/category/men',
+					color: 'foreground'
+				},
+				{ name: 'Войти', onClick: openAuthModal, color: 'danger' },
+				{
+					name: 'Зарегистрироваться',
+					onClick: openRegisterModal,
+					color: 'danger'
+				}
+			]
+
+	const { isOpen, onOpenChange, onClose, getButtonProps, getDisclosureProps } =
+		useDisclosure()
 
 	const LogoComponent = () => (
 		<NavbarBrand onClick={() => push('/')}>
-			<Image width={180} height={17} src="/images/name.svg" alt="name" />
+			<span
+				className={cn(
+					'font-bold text-2xl mt-2 ml-2 hover:cursor-pointer',
+					zeyada.className
+				)}
+			>
+				STEVISH JEWELRY
+			</span>
 		</NavbarBrand>
 	)
 
@@ -46,40 +118,79 @@ const Header: FC = () => {
 			isMenuOpen={isMenuOpen}
 			onMenuOpenChange={setIsMenuOpen}
 			classNames={{
-				base: 'flex items-center container bg-[#161616] px-6 sm:px-0',
-				wrapper: 'px-0 border-b border-[#323232]'
+				base: 'flex items-center container bg-white px-6 sm:px-0',
+				wrapper: 'px-0 border-b border-[#d4d4d4]'
 			}}
 			maxWidth="full"
 			position="static"
 		>
-			<NavbarContent className="sm:hidden" justify="start">
+			<NavbarContent className="lg:hidden" justify="start">
 				<NavbarMenuToggle
 					aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
 				/>
 			</NavbarContent>
-
-			<NavbarContent className="sm:flex hidden" justify="start">
+			<NavbarContent className="lg:hidden" justify="center">
 				<LogoComponent />
 			</NavbarContent>
-
-			<NavbarContent className="sm:hidden" justify="center">
+			<NavbarContent className="lg:flex hidden" justify="start">
 				<LogoComponent />
 			</NavbarContent>
-
-			<NavbarContent className="hidden sm:flex gap-4 w-full" justify="start">
-				<Search />
+			<NavbarContent className="lg:flex hidden gap-5 xl:gap-8" justify="center">
+				<NavbarItem>
+					<Link
+						color="foreground"
+						href="/"
+						className="font-normal text-base text-black"
+					>
+						Главная
+					</Link>
+				</NavbarItem>
+				<NavbarItem>
+					<Link
+						color="foreground"
+						href="/category/all"
+						className="font-normal text-base text-black"
+					>
+						Все Товары
+					</Link>
+				</NavbarItem>
+				<NavbarItem>
+					<Link
+						color="foreground"
+						href="/category/women"
+						className="font-normal text-base text-black"
+					>
+						Женские Украшения
+					</Link>
+				</NavbarItem>
+				<NavbarItem>
+					<Link
+						color="foreground"
+						href="/category/men"
+						className="font-normal text-base text-black"
+					>
+						Мужские Украшения
+					</Link>
+				</NavbarItem>
 			</NavbarContent>
-
 			<NavbarContent justify="end">
 				{!user ? (
 					<>
 						<NavbarItem className="hidden sm:flex">
-							<Link onClick={onOpenChange}>Login</Link>
+							<Link
+								className="text-black bg-lilac px-5 py-2 rounded-md cursor-pointer"
+								onClick={openAuthModal}
+							>
+								Войти
+							</Link>
 						</NavbarItem>
-						<NavbarItem>
-							<Button as={Link} color="primary" href="#" variant="flat">
-								Sign Up
-							</Button>
+						<NavbarItem className="hidden md:flex">
+							<Link
+								onClick={openRegisterModal}
+								className="cursor-pointer text-black bg-lilac px-5 py-2 rounded-md"
+							>
+								Зарегистрироваться
+							</Link>
 						</NavbarItem>
 					</>
 				) : (
@@ -87,12 +198,12 @@ const Header: FC = () => {
 						{user?.isAdmin && !isAdminPanel && (
 							<Link
 								href="/admin"
-								className="hover:text-primary transition-colors duration-200 text-white text-lg sm:inline-block hidden"
+								className="hover:text-lilac transition-colors duration-200 text-black text-lg sm:inline-block hidden"
 							>
 								<MdOutlineAdminPanelSettings size={29} />
 							</Link>
 						)}
-						<Link href="/favorites" className="text-white">
+						<Link href="/favorites" className="text-black hover:text-lilac">
 							<AiOutlineHeart size={28} />
 						</Link>
 						<HeaderCart />
@@ -100,30 +211,35 @@ const Header: FC = () => {
 					</>
 				)}
 			</NavbarContent>
-
-			<NavbarMenu>
+			<NavbarMenu className="bg-transparent ">
 				{menuItems.map((item, index) => (
 					<NavbarMenuItem key={`${item}-${index}`}>
 						<Link
-							className="w-full"
-							color={
-								index === 2
-									? 'warning'
-									: index === menuItems.length - 1
-									? 'danger'
-									: 'foreground'
-							}
-							href="#"
+							className="w-full text-lg"
+							href={item.link}
+							onClick={item.onClick}
 							size="lg"
+							color={
+								item.color as
+									| 'foreground'
+									| 'danger'
+									| 'primary'
+									| 'secondary'
+									| 'success'
+									| 'warning'
+							}
 						>
-							{item}
+							{item.name}
 						</Link>
 					</NavbarMenuItem>
 				))}
 			</NavbarMenu>
-
 			{/* AUTH MODAL */}
-			<AuthModal isOpen={isOpen} onClose={onClose} />
+			{modal === 'auth' && <AuthModal isOpen={isOpen} onClose={onClose} />}
+			{/* RegisterModal */}
+			{modal === 'register' && (
+				<RegisterModal isOpen={isOpen} onClose={onClose} />
+			)}
 		</Navbar>
 	)
 }

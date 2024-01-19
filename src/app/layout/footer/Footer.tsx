@@ -97,7 +97,14 @@ const Footer: React.FC = () => {
 				<NavigationItem />
 				<ClientItem />
 			</div>
-			<Accordion fullWidth className="flex-col w-full flex sm:hidden">
+			<Accordion
+				fullWidth
+				className="flex-col w-full flex sm:hidden"
+				itemClasses={{
+					title: ' text-white',
+					indicator: 'text-base text-white'
+				}}
+			>
 				<AccordionItem key="1" aria-label="Контакты" title="Контакты">
 					<ContactItem />
 				</AccordionItem>

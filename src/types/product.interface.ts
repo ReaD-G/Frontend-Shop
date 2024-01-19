@@ -11,6 +11,8 @@ export interface IProduct {
 	createdAt: Date
 	category: ICategory
 	reviews: IReview[]
+	editUrl?: string
+	viewUrl?: string
 }
 
 export interface IProductDetails {
@@ -24,4 +26,10 @@ export type TypeProducts = {
 export type TypePaginationProducts = {
 	length: number
 	products: IProduct[]
+}
+
+export type Home = {
+	newProducts: IProduct[]
+	menProducts: IProduct[]
+	womenProducts: IProduct[]
 }

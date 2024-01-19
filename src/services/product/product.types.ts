@@ -5,7 +5,7 @@ export type TypeProductData = {
 	slug: string
 	description?: string
 	images: { fileUrl: string; fileKey: string }[]
-	price: number
+	price: string | number
 	categoryId: number
 }
 
@@ -14,7 +14,8 @@ export type TypeProductDataFilters = {
 	searchTerm?: string
 	page?: string | number
 	perPage: string | number
-	ratings: string
+	slug?: string
+	ratings?: string
 	minPrice?: string
 	maxPrice?: string
 	categoryId?: string

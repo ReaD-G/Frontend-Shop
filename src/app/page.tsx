@@ -1,6 +1,7 @@
-import Home from '@/app/Home'
+import { CategoryService } from '@/services/categoty.service'
 import { ProductService } from '@/services/product/product.service'
 import type { Metadata } from 'next'
+import Dashboard from './Dashboard'
 
 export const metadata: Metadata = {
 	description:
@@ -10,16 +11,40 @@ export const metadata: Metadata = {
 export const revalidate = 60
 
 async function getProducts() {
-	const data = await ProductService.getAll({
+	const { data: categories } = await CategoryService.getAll()
+	let menProducts = { products: [], length: 0 }
+	let womenProducts = { products: [], length: 0 }
+	if (categories) {
+		menProducts = await ProductService.getAll({
+			page: 1,
+			perPage: 5,
+			categoryId: categories[0].id.toString()
+		})
+		womenProducts = await ProductService.getAll({
+			page: 1,
+			perPage: 5,
+			categoryId: categories[1].id.toString()
+		})
+	}
+	const newProducts = await ProductService.getAll({
 		page: 1,
-		perPage: 4,
-		ratings: ''
+		perPage: 5
 	})
 
-	return data
+	return {
+		menProducts,
+		womenProducts,
+		newProducts
+	}
 }
 
 export default async function Page() {
-	const data = await getProducts()
-	return <Home products={data.products} length={data.length} />
+	const { menProducts, womenProducts, newProducts } = await getProducts()
+	return (
+		<Dashboard
+			newProducts={newProducts.products}
+			menProducts={menProducts.products}
+			womenProducts={womenProducts.products}
+		/>
+	)
 }

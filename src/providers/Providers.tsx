@@ -23,9 +23,9 @@ export default function App({ children }: PropsWithChildren) {
 		<QueryClientProvider client={queryClient}>
 			<Provider store={store}>
 				<PersistGate loading={null} persistor={persistor}>
-					<NextUIProvider>
-						<AuthProvider>{children}</AuthProvider>
-					</NextUIProvider>
+					<AuthProvider>
+						<NextUIProvider>{children}</NextUIProvider>
+					</AuthProvider>
 				</PersistGate>
 			</Provider>
 		</QueryClientProvider>

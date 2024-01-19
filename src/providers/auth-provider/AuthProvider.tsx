@@ -13,6 +13,7 @@ import { protectedRoutes } from './protected-routes.data'
 
 const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 	const { user } = useAuth()
+	const { getProfile } = useActions()
 	const { checkAuth, logout } = useActions()
 
 	const pathname = usePathname()
@@ -20,6 +21,7 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 	useEffect(() => {
 		const accessToken = getAccessToken()
 		if (accessToken) {
+			getProfile()
 			checkAuth()
 		}
 	}, [])

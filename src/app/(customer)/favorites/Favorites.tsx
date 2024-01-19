@@ -5,5 +5,7 @@ import Catalog from '@/ui/catalog/Catalog'
 
 export default function FavoritesPage() {
 	const { profile } = useProfile()
-	return <Catalog products={profile?.favorites || []} title="Favorites" />
+	return (
+		<Catalog isAll products={profile?.favorites || []} title="Мои Избранные" />
+	)
 }

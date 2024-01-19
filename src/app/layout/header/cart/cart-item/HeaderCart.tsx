@@ -4,12 +4,11 @@ import { useCart } from '@/hooks/useCart'
 import { useOutside } from '@/hooks/useOutside'
 import SquareButton from '@/ui/button/SquareButton'
 import { convertPrice } from '@/utils/convertPrice'
+import { Link } from '@nextui-org/react'
 import { FC } from 'react'
 import { RiShoppingCartLine } from 'react-icons/ri'
-import CartItem from './CartItem'
-
-import Link from 'next/link'
 import styles from './Cart.module.scss'
+import CartItem from './CartItem'
 
 const Cart: FC = () => {
 	const { isShow, setIsShow, ref } = useOutside(false)
@@ -27,27 +26,27 @@ const Cart: FC = () => {
 			/>
 			{isShow && (
 				<div className={styles.cartWrapper}>
-					<div className="font-normal text-lg mb-5">My cart</div>
+					<div className="font-normal text-xl mb-2 justify-center flex">Моя корзина</div>
 					<div className={styles.cart}>
 						{items.length ? (
 							items.map(item => <CartItem item={item} key={item.id} />)
 						) : (
-							<div className="font-light"> Cart is empty!</div>
+							<div className="font-light">Корзина пуста!</div>
 						)}
 					</div>
 
 					<div className={styles.footer}>
-						<div>Total:</div>
+						<div>Общая цена:</div>
 						<div>{convertPrice(total)}</div>
 					</div>
 					{!!items.length && (
 						<div className="text-center mt-7 mb-5">
 							<Link
-								className="btn btn-white"
+								className="text-black bg-lilac px-5 py-2 rounded-md"
 								href="/checkout"
 								onClick={() => setIsShow(false)}
 							>
-								Go to checkout
+								Перейти к оплате
 							</Link>
 						</div>
 					)}

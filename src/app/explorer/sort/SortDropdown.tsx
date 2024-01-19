@@ -7,12 +7,12 @@ import { SORT_SELECT_DATA } from './sort-select.data'
 const SortDropdown: FC = () => {
 	const { queryParams, updateQueryParams } = useFilters()
 	return (
-		<div className="text-right mb-5 z-10">
+		<div className="text-right z-50">
 			<Select<EnumProductSort>
 				data={SORT_SELECT_DATA}
 				onChange={value => updateQueryParams('sort', value.key.toString())}
 				value={SORT_SELECT_DATA.find(value => value.key === queryParams.sort)}
-				title="Sort by"
+				title="Поиск по"
 			/>
 		</div>
 	)

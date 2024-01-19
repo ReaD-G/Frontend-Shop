@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import CreateProduct from './CreateProduct'
 
 export const metadata: Metadata = {
-	title: 'Edit product',
+	title: 'Create product',
 	...NO_INDEX_PAGE
 }
 

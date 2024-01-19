@@ -2,10 +2,9 @@
 
 import { ProductService } from '@/services/product/product.service'
 import { IProduct } from '@/types/product.interface'
-import Heading from '@/ui/Heading'
+import { Heading } from '@radix-ui/themes'
 import { useQuery } from '@tanstack/react-query'
 import ProductsGallery from './ProductGallery'
-import ProductReviewCount from './ProductReviewsCount'
 import SimilarProducts from './SimilarProducts'
 import ProductInformation from './product-information/ProductInformation'
 import ProductReviews from './product-reviews/ProductReviews'
@@ -31,19 +30,18 @@ export default function Product({
 	)
 
 	return (
-		<div className="flex flex-col sm:px-4">
-			<Heading className="mb-1 mt-4 items-start w-full">{product.name}</Heading>
-			<ProductReviewCount product={product} />
-			<div className="flex flex-row mt-6">
+		<section className="mx-auto container px-2">
+			<div className="flex md:flex-row flex-col w-full mt-4">
+				<Heading className="text-2xl  justify-center mb-2 items-center flex md:hidden">
+					{product.name}
+				</Heading>
 				<ProductsGallery images={product.images} />
-				<ProductInformation product={product} />
-			</div>
-			<div className="opacity-80 font-light">
-				<div className="font-semibold mb-1">Description:</div>
-				{product.description}
+				<div className="md:w-1/2 ml-4">
+					<ProductInformation product={product} />
+				</div>
 			</div>
 			<SimilarProducts similarProducts={similarProducts} />
 			<ProductReviews reviews={product.reviews} productId={product.id} />
-		</div>
+		</section>
 	)
 }

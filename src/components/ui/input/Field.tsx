@@ -1,37 +1,41 @@
-import cn from 'classnames'
-import { forwardRef } from 'react'
+import { Input } from '@nextui-org/react'
+import { FC } from 'react'
 import { IField } from './field.interface'
 
-const Field = forwardRef<HTMLInputElement, IField>(
-	(
-		{ placeholder, error, className, type = 'text', style, Icon, ...rest },
-		ref
-	) => {
-		return (
-			<div className={cn('mb-4', className)} style={style}>
-				<label>
-					<span className="mb-1 block">
-						{Icon && <Icon className="mr-3" />}
-						{placeholder}
-					</span>
-					<input
-						placeholder={placeholder}
-						ref={ref}
-						type={type}
-						{...rest}
-						className={cn(
-							'px-4 py-2 w-full outline-none border border-gray border-solid focus:border-primary transition-all placeholder:font-normal rounded-lg',
-							{
-								'border-red': !!error
-							}
-						)}
-					/>
-				</label>
-				{error && <div className="text-red mt-1">{error}</div>}
-			</div>
-		)
-	}
-)
+const Field: FC<IField> = ({
+	defaultValue,
+	placeholder,
+	name,
+	label,
+	type = 'text',
+	inputHandler,
+	isRequired,
+	startContent
+}) => {
+	return (
+		<Input
+			defaultValue={defaultValue}
+			radius="lg"
+			classNames={{
+				label: 'text-lg text-semibold',
+				input: 'bg-transparent text-md text-normal placeholder:text-gray',
+				innerWrapper: 'bg-transparent',
+				inputWrapper:
+					'shadow-xl px-4 py-2 mb-5 border-gray border group-data-[hover=true]:border-lilac'
+			}}
+			color="primary"
+			labelPlacement="outside"
+			isRequired={isRequired}
+			startContent={startContent}
+			name={name}
+			type={type}
+			label={label}
+			onChange={inputHandler}
+			placeholder={placeholder}
+			variant="bordered"
+		/>
+	)
+}
 
 Field.displayName = 'Field'
 

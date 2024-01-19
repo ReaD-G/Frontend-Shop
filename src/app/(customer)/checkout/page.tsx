@@ -13,7 +13,7 @@ export const revalidate = 60
 async function getProducts() {
 	const data = await ProductService.getAll({
 		page: 1,
-		perPage: 4,
+		perPage: 5,
 		ratings: ''
 	})
 

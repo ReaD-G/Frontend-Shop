@@ -1,9 +1,9 @@
 import { IUser } from '@/types/user.interface'
 
 export interface IUserState {
-	email: string
+	phone: string
+	email?: string
 	isAdmin: boolean
-
 }
 
 export interface ITokens {
@@ -19,6 +19,10 @@ export interface IInitialState {
 export interface IEmailPassword {
 	email: string
 	password: string
+}
+
+export interface IPhone {
+	phone: string
 }
 
 export interface IAuthResponse extends ITokens {

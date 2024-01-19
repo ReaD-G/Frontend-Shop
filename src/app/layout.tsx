@@ -1,4 +1,3 @@
-import { Inter } from 'next/font/google'
 import type { PropsWithChildren } from 'react'
 
 import '@/assets/styles/globals.scss'
@@ -10,13 +9,14 @@ import { SITE_NAME } from '@/constants/app.constans'
 import type { Metadata } from 'next'
 
 import cn from 'classnames'
+import { Caveat } from 'next/font/google'
 import 'slick-carousel/slick/slick-theme.css'
 import 'slick-carousel/slick/slick.css'
 import LayoutProvider from './layout/LayoutProvider'
 
 export const metadata: Metadata = {
 	icons: {
-		icon: '/favicon.svg'
+		icon: '/favicon.png'
 	},
 	title: {
 		absolute: SITE_NAME,
@@ -30,14 +30,18 @@ export const metadata: Metadata = {
 		emails: ['info@bruli-shop.com']
 	}
 }
-const inter = Inter({ subsets: ['latin'] })
+
+const caveat = Caveat({
+	weight: '600',
+	subsets: ['latin']
+})
 
 export default function RootLayout({ children }: PropsWithChildren<unknown>) {
 	return (
 		// <ClerkProvider> // Later update the login method for the web application
 		<html lang="ru">
 			<head />
-			<body className={cn('min-h-screen', inter.className)}>
+			<body className={cn('min-h-screen', caveat.className)}>
 				<Providers>
 					<LayoutProvider>{children}</LayoutProvider>
 				</Providers>

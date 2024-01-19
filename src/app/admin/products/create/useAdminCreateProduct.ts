@@ -4,7 +4,7 @@ import { TypeProductData } from '@/services/product/product.types'
 import { useMutation, useQuery } from '@tanstack/react-query'
 
 export const useAdminCreateProduct = () => {
-	const { data: category } = useQuery(
+	const { data: category, isFetching } = useQuery(
 		['get admin category'],
 		() => CategoryService.getAll(),
 		{
@@ -28,5 +28,5 @@ export const useAdminCreateProduct = () => {
 		}
 	)
 
-	return { createProduct, category, updateNewProduct }
+	return { createProduct, category, updateNewProduct, isFetching }
 }

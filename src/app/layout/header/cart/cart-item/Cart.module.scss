@@ -1,10 +1,10 @@
 .cartWrapper {
-	@apply absolute -left-[12.5rem] top-[4.2rem] z-20 w-80 rounded-xl bg-[#000] px-6 py-4 text-sm text-white;
+	@apply absolute -left-[14.5rem] top-[4.2rem] z-20 w-80 rounded-xl drop-shadow-lg border border-gray/20 bg-[#fff] px-6 pt-4 text-base text-black shadow-gray;
 	animation: 0.7s cartAnimation ease-in-out;
 }
 
 .cart {
-	@apply mb-10;
+	@apply mb-5;
 
 	.item {
 		@apply flex items-center gap-4 border-b border-b-black/30 pb-6 pt-4;
@@ -14,18 +14,18 @@
 		}
 
 		.price {
-			@apply mt-1 text-sm text-white;
+			@apply mt-1 text-base text-black;
 		}
 
 		.variation {
-			@apply text-xs text-white opacity-70;
+			@apply text-xs text-black opacity-70;
 		}
 	}
 }
 
 .footer {
 	> div:first-child {
-		@apply text-sm text-white;
+		@apply text-base text-black;
 	}
 
 	> div:last-child {
@@ -35,7 +35,7 @@
 
 @keyframes cartAnimation {
 	from {
-		transform: translateX(110%);
+		transform: translateY(-100%);
 	}
 
 	to {

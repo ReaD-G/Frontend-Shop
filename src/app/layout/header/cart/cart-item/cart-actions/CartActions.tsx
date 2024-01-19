@@ -23,7 +23,7 @@ const CartAction: FC<{ item: ICartItem }> = ({ item }) => {
 					disabled
 					readOnly
 					value={quantity}
-					className="w-10 bg-black text-center"
+					className="w-8 mr-1 bg-white text-center"
 				/>
 
 				<button onClick={() => changeQuantity({ id: item.id, type: 'plus' })}>

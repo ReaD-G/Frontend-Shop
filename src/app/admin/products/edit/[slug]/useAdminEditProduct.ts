@@ -3,8 +3,8 @@ import { ProductService } from '@/services/product/product.service'
 import { TypeProductData } from '@/services/product/product.types'
 import { useMutation, useQuery } from '@tanstack/react-query'
 
-export const useAdminEditProduct = (id: number) => {
-	const { data, isFetching, refetch } = useQuery(
+export const useAdminEditProduct = (id: number, push: (string) => void) => {
+	const { data, isFetching } = useQuery(
 		['get admin product by id'],
 		() => ProductService.getById(id),
 		{
@@ -20,15 +20,16 @@ export const useAdminEditProduct = (id: number) => {
 		}
 	)
 
-	const { mutate } = useMutation(
+	const { mutateAsync } = useMutation(
 		['update product'],
 		(data: TypeProductData) => ProductService.update(id, data),
 		{
 			onSuccess({ data }) {
-				refetch()
+				push('/admin')
+				// add toast message
 			}
 		}
 	)
 
-	return { data, isFetching, mutate, category }
+	return { data, isFetching, mutateAsync, category }
 }

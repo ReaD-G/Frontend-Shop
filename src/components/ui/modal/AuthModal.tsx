@@ -1,10 +1,8 @@
 import { useActions } from '@/hooks/useActions'
-import { IEmailPassword } from '@/store/user/user.interface'
-import { validEmail } from '@/utils/valid-email'
+import { IPhone } from '@/store/user/user.interface'
 import {
 	Button,
 	Input,
-	Link,
 	Modal,
 	ModalBody,
 	ModalContent,
@@ -13,8 +11,7 @@ import {
 } from '@nextui-org/react'
 import { useMemo, useState, type FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-
-import { CiLock, CiMail } from 'react-icons/ci'
+import { BiPhone } from 'react-icons/bi'
 
 interface IModal {
 	isOpen: boolean
@@ -25,19 +22,21 @@ interface IModal {
 
 const AuthModal: FC<IModal> = ({ isOpen, onClose }) => {
 	const { login, register } = useActions()
-	const [email, setEmail] = useState('')
+	// const [email, setEmail] = useState('')
+	const [phone, setPhone] = useState('')
 
 	const [type, setType] = useState<'login' | 'register'>('login')
 
-	const { handleSubmit, setValue, reset, getValues } = useForm<IEmailPassword>({
+	const { handleSubmit, setValue, reset, getValues } = useForm<IPhone>({
 		mode: 'onChange',
 		defaultValues: {
-			email: '',
-			password: ''
+			phone: ''
+			// email: '',
+			// password: ''
 		}
 	})
 
-	const onSubmit: SubmitHandler<IEmailPassword> = fields => {
+	const onSubmit: SubmitHandler<IPhone> = fields => {
 		if (type === 'login') {
 			login(fields)
 		} else {
@@ -47,21 +46,31 @@ const AuthModal: FC<IModal> = ({ isOpen, onClose }) => {
 		onClose()
 	}
 
-	const validateEmail = value => value.match(validEmail)
+	// const validateEmail = value => value.match(validEmail)
 
-	const handleEmail = e => {
-		setEmail(e.target.value)
-		setValue('email', e.target.value)
+	// const handleEmail = e => {
+	// 	setEmail(e.target.value)
+	// 	setValue('email', e.target.value)
+	// }
+
+	const handlePhone = e => {
+		setPhone(e.target.value)
+		setValue('phone', e.target.value)
 	}
 
+	// const isInvalid = useMemo(() => {
+	// 	if (email === '') return false
+	// 	return validateEmail(email) ? false : true
+	// }, [email])
+
 	const isInvalid = useMemo(() => {
-		if (email === '') return false
-		return validateEmail(email) ? false : true
-	}, [email])
+		if (phone === '') return false
+	}, [phone])
 
 	return (
 		<Modal
-			className="dark"
+			id="auth"
+			className="ligth"
 			backdrop="blur"
 			isOpen={isOpen}
 			placement="center"
@@ -71,9 +80,27 @@ const AuthModal: FC<IModal> = ({ isOpen, onClose }) => {
 				<ModalContent>
 					{onClose => (
 						<>
-							<ModalHeader className="flex flex-col gap-1">Log in</ModalHeader>
+							<ModalHeader className="flex flex-col gap-1">Войти</ModalHeader>
 							<ModalBody>
 								<Input
+									color={isInvalid ? 'danger' : 'default'}
+									name="Номер телофона"
+									label="Номер телефона"
+									// placeholder='+375 (29) XXX XX XX'
+									placeholder="Введите номер телефона"
+									type="tel"
+									inputMode="tel"
+									autoFocus
+									variant="bordered"
+									onChange={e => handlePhone(e)}
+									errorMessage={
+										isInvalid && 'Пожалуйста введите правильный номер телефона'
+									}
+									startContent={
+										<BiPhone className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+									}
+								/>
+								{/* <Input
 									isRequired
 									color={isInvalid ? 'danger' : 'default'}
 									name="Email"
@@ -98,19 +125,28 @@ const AuthModal: FC<IModal> = ({ isOpen, onClose }) => {
 									type="password"
 									variant="bordered"
 									onChange={e => setValue('password', e.target.value)}
-								/>
-								<div className="flex py-2 px-1 justify-between">
+								/> */}
+								{/* <div className="flex py-2 px-1 justify-between">
 									<Link color="primary" href="#" size="sm">
-										Forgot password?
+										Забыл пароль?
 									</Link>
-								</div>
+								</div> */}
 							</ModalBody>
 							<ModalFooter>
-								<Button type="submit" color="primary">
-									Sign in
+								<Button
+									className="text-black bg-lilac px-5 py-2 rounded-md"
+									type="submit"
+									color="default"
+								>
+									Войти
 								</Button>
-								<Button color="danger" variant="flat" onPress={onClose}>
-									Close
+								<Button
+									className="px-5 py-2 rounded-md"
+									// color="default"
+									variant="bordered"
+									onPress={onClose}
+								>
+									Закрыть
 								</Button>
 							</ModalFooter>
 						</>

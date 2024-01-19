@@ -3,9 +3,9 @@
 import { TypeProductData } from '@/services/product/product.types'
 import Heading from '@/ui/Heading'
 import Loader from '@/ui/Loader'
-import Button from '@/ui/button/Button'
 import Field from '@/ui/input/Field'
 import { UploadButton } from '@/utils/uploadthing'
+import { Button } from '@nextui-org/react'
 import Image from 'next/image'
 import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -15,14 +15,21 @@ import { UploadService } from '@/services/upload.service'
 import { IProductFields } from './product-fields.interface'
 import { useAdminEditProduct } from './useAdminEditProduct'
 
+import FieldArea from '@/ui/input/FieldArea'
 import { Select, SelectItem } from '@nextui-org/react'
+import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 
 const EditProduct: FC<{ id: number }> = ({ id }) => {
 	const { push } = useRouter()
-	const { data, isFetching, mutate, category } = useAdminEditProduct(id)
+	const queryCache = useQueryClient()
+
 	const [images, setImages] = useState<{ fileUrl: string; fileKey: string }[]>(
 		[]
+	)
+	const { data, isFetching, mutateAsync, category } = useAdminEditProduct(
+		id,
+		push
 	)
 
 	useEffect(() => {
@@ -45,7 +52,11 @@ const EditProduct: FC<{ id: number }> = ({ id }) => {
 		setImages(newArrayImages)
 	}
 
-	const { handleSubmit, setValue } = useForm<IProductFields>({
+	const {
+		handleSubmit,
+		setValue,
+		formState: { isSubmitSuccessful }
+	} = useForm<IProductFields>({
 		mode: 'onChange'
 	})
 
@@ -54,13 +65,12 @@ const EditProduct: FC<{ id: number }> = ({ id }) => {
 			name: fields.name || data.name,
 			description: fields.description || data.description,
 			images: images || data.images,
-			price: +fields.price || data.price,
+			price: +fields.price || +data.price,
 			slug: data.slug,
 			categoryId: fields.categoryId || data.category.id
 		}
-
-		mutate(updateProduct)
-		push('/admin')
+		mutateAsync(updateProduct)
+		queryCache.invalidateQueries(['get admin products'])
 	}
 
 	if (isFetching) {
@@ -68,7 +78,7 @@ const EditProduct: FC<{ id: number }> = ({ id }) => {
 	}
 
 	const imgList = (
-		<div className="overflow-auto flex flex-row gap-5">
+		<div className="overflow-auto flex flex-row gap-5 mb-3">
 			{images.map(image => (
 				<div key={image.fileKey} className="relative bg-white rounded-xl">
 					<div
@@ -92,11 +102,11 @@ const EditProduct: FC<{ id: number }> = ({ id }) => {
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
-			className="rounded-lg bg-white shadow-sm p-8 m-auto w-full h-full flex items-center flex-col justify-between"
+			className="rounded-lg shadow-sm p-8 mb-3 w-full xl:w-1/2 h-full flex items-center flex-col justify-between container"
 		>
 			<div className="flex flex-col w-full">
 				<Heading className="text-xl capitalize text-center mb-4">
-					Edit product
+					Обновить продукт
 				</Heading>
 
 				{/* Upload images  */}
@@ -117,29 +127,52 @@ const EditProduct: FC<{ id: number }> = ({ id }) => {
 				</div>
 				<Field
 					defaultValue={data.name}
-					placeholder="Name product"
-					onChange={e => setValue('name', e.target.value)}
+					isRequired
+					name="name"
+					type="text"
+					placeholder="Введите название украшения"
+					label="Название украшения"
+					inputHandler={e => setValue('name', e.target.value)}
 				/>
-				<Field
+				<FieldArea
 					defaultValue={data.description}
-					placeholder="Description product"
-					onChange={e => setValue('description', e.target.value)}
+					name="description"
+					type="text"
+					label="Описание украшения"
+					inputHandler={e => setValue('description', e.target.value)}
+					placeholder="Введите описание украшения"
 				/>
 				<Field
-					defaultValue={data.price}
+					defaultValue={data.price.toString()}
+					isRequired
+					name="price"
 					type="number"
-					placeholder="Price"
-					onChange={e => setValue('price', e.target.value)}
+					label="Цена"
+					placeholder="0.00"
+					startContent={<span className="text-black/50">BYN</span>}
+					inputHandler={e => setValue('price', e.target.value)}
 				/>
 				<Select
-					isRequired
+					labelPlacement="outside"
 					variant="bordered"
-					label="Category"
-					placeholder="Select category"
+					label="Категория"
 					disallowEmptySelection
-					defaultSelectedKeys={[data.category.name]}
-					className="w-full mb-5"
+					defaultSelectedKeys={['Женские']}
 					onChange={handleChange}
+					listboxProps={{
+						itemClasses: {
+							title: 'text-[18px] placeholder:text-gray',
+							base: 'data-[selectable=true]:focus:bg-lilac/30'
+						}
+					}}
+					classNames={{
+						base: 'text-md',
+						label: 'text-lg text-semibold',
+						innerWrapper: 'bg-transparent ',
+						value: 'bg-transparent text-md text-normal placeholder:text-gray',
+						trigger:
+							'px-4 py-2 shadow-xl mb-5 mt-4 border-gray border data-[hover=true]:border-lilac data-[open=true]:border-lilac data-[focus=true]:border-lilac'
+					}}
 				>
 					{category?.map(item => (
 						<SelectItem key={item.name || data.category.name} value={item.name}>
@@ -148,15 +181,26 @@ const EditProduct: FC<{ id: number }> = ({ id }) => {
 					))}
 				</Select>
 			</div>
-			<Button type="submit" className="w-full mb-5" variant="orange">
-				Update
+			<Button
+				isLoading={isSubmitSuccessful}
+				fullWidth
+				radius="lg"
+				type="submit"
+				variant="bordered"
+				className="text-semibold text-black text-lg border-gray hover:border-lilac border-1.5 hover:bg-lilac hover:text-white mb-2"
+			>
+				Обновить
 			</Button>
 			<Button
-				className="w-full"
-				variant="white"
-				onClick={() => push('/admin/products')}
+				fullWidth
+				radius="lg"
+				variant="bordered"
+				isDisabled={isSubmitSuccessful}
+				size="md"
+				className="text-semibold text-black text-lg border-gray hover:border-lilac border-1.5 hover:bg-lilac hover:text-white"
+				onClick={() => push('/admin')}
 			>
-				Cancel
+				Закрыть
 			</Button>
 		</form>
 	)

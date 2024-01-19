@@ -1,8 +1,12 @@
 import { InputHTMLAttributes } from 'react'
-import { IconType } from 'react-icons'
 
 export interface IField extends InputHTMLAttributes<HTMLInputElement> {
 	placeholder: string
-	Icon?: IconType
-	error?: string
+	defaultValue?:string
+	name: string
+	label: string
+	type: string
+	isRequired?: boolean
+	startContent?: JSX.Element
+	inputHandler: (e) => void
 }

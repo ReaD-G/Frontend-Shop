@@ -16,20 +16,22 @@ export async function generateStaticParams() {
 			}
 		}
 	})
-
 	return paths
 }
 
 async function getProducts(params: TypeParamSlug) {
-	const { data: products } = await ProductService.getByCategory(
-		params?.slug as string
-	)
-	const { data: category } = await CategoryService.getBySlug(
-		params?.slug as string
-	)
+	const { products: allProducts } = await ProductService.getAll()
+
+	const { data: products } =
+		params?.slug !== 'all' &&
+		(await ProductService.getByCategory(params?.slug as string))
+	const { data: category } =
+		params?.slug !== 'all' &&
+		(await CategoryService.getBySlug(params?.slug as string))
+
 	return {
-		products,
-		category
+		products: params?.slug === 'all' ? allProducts : products,
+		category: params?.slug !== 'all' && category
 	}
 }
 
@@ -37,19 +39,21 @@ export async function generateMetadata({
 	params
 }: IPageSlugParam): Promise<Metadata> {
 	const { products, category } = await getProducts(params)
+	const categoryName = category ? category.name : 'Все'
 	return {
-		title: category.name,
-		description: `Random description about ${category.name}`,
+		title: categoryName,
+		description: `Random description about ${categoryName}`,
 		openGraph: {
 			images: products[0].images.length
 				? products[0].images[0].fileUrl
 				: '/images/noImage.png',
-			description: `Random description about ${category.name}`
+			description: `Random description about ${categoryName}`
 		}
 	}
 }
 
 export default async function CategoryPage({ params }: IPageSlugParam) {
 	const { products, category } = await getProducts(params)
-	return <Catalog products={products || []} title={category.name} />
+	const categoryName = category ? `${category.name} Украшения` : 'Все Украшения'
+	return <Catalog isAll products={products || []} title={categoryName} />
 }
